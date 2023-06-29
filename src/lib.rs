@@ -36,7 +36,8 @@ impl APIWrapper {
     
         let http_client: Client = Client::builder()
             .default_headers(headers)
-            .build()?;
+            .build()
+            .unwrap();
 
         let wrapper = APIWrapper { http_client };
 
@@ -55,8 +56,10 @@ impl APIWrapper {
           .http_client
           .post(format!("{}/{}/{}", BASE_URL, VERSION, request_endpoint))
           .body(body)
+          .send()
+          .unwrap();
 
-        Ok(response.json()?)
+        Ok(response.json().unwrap())
     }
 }
 
