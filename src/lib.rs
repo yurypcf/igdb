@@ -9,6 +9,9 @@ const BASE_URL: &str = "https://api.igdb.com";
 const VERSION:  &str = "v4";
 
 pub struct APIWrapper {
+    http_client: Client,
+}
+
 #[derive(Deserialize, Debug, PartialEq)]
 struct Game {
   id: usize,
