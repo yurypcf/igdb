@@ -43,15 +43,18 @@ impl APIWrapper {
         Ok(wrapper)
     }
 
-    pub fn post<D>(&self) -> Result<D>
+    pub fn post<D>(
+      &self,
+      body: String,
+      request_endpoint: &str
+    ) -> Result<D>
     where
         D: DeserializeOwned,
     {
         let response = self
           .http_client
-          .post(format!("{}/{}/games", BASE_URL, VERSION))
-          .body(r#"fields name; search "zelda"; limit 5;"#)
-          .send()?;
+          .post(format!("{}/{}/{}", BASE_URL, VERSION, request_endpoint))
+          .body(body)
 
         Ok(response.json()?)
     }
