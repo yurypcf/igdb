@@ -1,8 +1,10 @@
 mod response_handler;
+mod helper;
 
 use reqwest::{ header::HeaderMap, header::HeaderValue, blocking::Client };
 use serde::{ de::DeserializeOwned, Deserialize };
 use response_handler::Result;
+use helper::EndpointHelper;
 
 
 const BASE_URL: &str = "https://api.igdb.com";
@@ -61,12 +63,14 @@ impl APIWrapper {
 
         Ok(response.json().unwrap())
     }
+
+    pub fn games<'a>(&'a self) -> EndpointHelper<'a>{
+      EndpointHelper { wrapper: self, query_string: Vec::new(), endpoint: "games"}
 }
 
-#[derive(Deserialize, Debug)]
-struct Game {
-  id: usize,
-  name: String,
+    pub fn characters<'a>(&'a self) -> EndpointHelper<'a>{
+      EndpointHelper { wrapper: self, query_string: Vec::new(), endpoint: "characters"}
+    }
 }
 
 #[cfg(test)]
