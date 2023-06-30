@@ -1,8 +1,9 @@
+pub mod models;
 mod response_handler;
 mod utils;
 
 use reqwest::{ header::HeaderMap, header::HeaderValue, blocking::Client };
-use serde::{ de::DeserializeOwned, Deserialize };
+use serde::{ de::DeserializeOwned };
 use response_handler::Result;
 use utils::EndpointHelper;
 
@@ -12,18 +13,6 @@ const VERSION:  &str = "v4";
 
 pub struct APIWrapper {
     http_client: Client,
-}
-
-#[derive(Deserialize, Debug, PartialEq)]
-struct Game {
-  id: usize,
-  name: String,
-}
-
-#[derive(Deserialize, Debug, PartialEq)]
-struct Character {
-  id: usize,
-  name: String,
 }
 
 impl APIWrapper {
@@ -76,6 +65,7 @@ impl APIWrapper {
 #[cfg(test)]
 mod tests {
   use super::*;
+  use models::{Game, Character};
   use std::env;
 
   #[test]
