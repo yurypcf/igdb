@@ -46,7 +46,7 @@ impl APIWrapper {
         Ok(wrapper)
     }
 
-    pub fn post<D>(
+    fn post<D>(
       &self,
       body: String,
       request_endpoint: &str
