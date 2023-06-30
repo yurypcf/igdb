@@ -1,12 +1,10 @@
 pub mod models;
-mod response_handler;
 mod utils;
 
 use reqwest::{ header::HeaderMap, header::HeaderValue, blocking::Client };
 use serde::{ de::DeserializeOwned };
-use response_handler::Result;
-use utils::EndpointHelper;
-
+use utils::EndpointUtils;
+use utils::response_handler::Result;
 
 const BASE_URL: &str = "https://api.igdb.com";
 const VERSION:  &str = "v4";
@@ -53,12 +51,12 @@ impl APIWrapper {
         Ok(response.json().unwrap())
     }
 
-    pub fn games<'a>(&'a self) -> EndpointHelper<'a>{
-      EndpointHelper { wrapper: self, query_string: Vec::new(), endpoint: "games"}
+    pub fn games<'a>(&'a self) -> EndpointUtils<'a>{
+      EndpointUtils { wrapper: self, query_string: Vec::new(), endpoint: "games"}
     }
 
-    pub fn characters<'a>(&'a self) -> EndpointHelper<'a>{
-      EndpointHelper { wrapper: self, query_string: Vec::new(), endpoint: "characters"}
+    pub fn characters<'a>(&'a self) -> EndpointUtils<'a>{
+      EndpointUtils { wrapper: self, query_string: Vec::new(), endpoint: "characters"}
     }
 }
 
