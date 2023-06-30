@@ -1,10 +1,10 @@
 mod response_handler;
-mod helper;
+mod utils;
 
 use reqwest::{ header::HeaderMap, header::HeaderValue, blocking::Client };
 use serde::{ de::DeserializeOwned, Deserialize };
 use response_handler::Result;
-use helper::EndpointHelper;
+use utils::EndpointHelper;
 
 
 const BASE_URL: &str = "https://api.igdb.com";
