@@ -51,10 +51,12 @@ impl APIWrapper {
         Ok(response.json().unwrap())
     }
 
+    #[cfg(feature = "game")]
     pub fn games<'a>(&'a self) -> EndpointUtils<'a>{
       EndpointUtils { wrapper: self, query_string: Vec::new(), endpoint: "games"}
     }
 
+    #[cfg(feature = "character")]
     pub fn characters<'a>(&'a self) -> EndpointUtils<'a>{
       EndpointUtils { wrapper: self, query_string: Vec::new(), endpoint: "characters"}
     }
