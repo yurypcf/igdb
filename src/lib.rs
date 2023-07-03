@@ -60,6 +60,11 @@ impl APIWrapper {
     pub fn characters<'a>(&'a self) -> EndpointUtils<'a>{
       EndpointUtils { wrapper: self, query_string: Vec::new(), endpoint: "characters"}
     }
+
+    #[cfg(feature = "genre")]
+    pub fn genres<'a>(&'a self) -> EndpointUtils<'a>{
+      EndpointUtils { wrapper: self, query_string: Vec::new(), endpoint: "genres"}
+    }
 }
 
 #[cfg(test)]
