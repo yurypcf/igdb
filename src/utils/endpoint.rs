@@ -12,6 +12,26 @@ impl<'a> EndpointUtils<'a> {
   pub fn fields(&'a mut self, input: &'a str) -> &'a mut EndpointUtils {
     self.str_iterator(vec!["fields ", input, ";"])
   }
+
+  pub fn exclude(&'a mut self, input: &'a str) -> &'a mut EndpointUtils {
+    self.str_iterator(vec!["exclude ", input, ";"])
+  }
+
+  pub fn where_like(&'a mut self, input: &'a str) -> &'a mut EndpointUtils {
+    self.str_iterator(vec!["where ", input, ";"])
+  }
+
+  pub fn sort_desc(&'a mut self, input: &'a str) -> &'a mut EndpointUtils {
+    self.str_iterator(vec!["sort ", input, " desc;"])
+  }
+
+  pub fn sort_asc(&'a mut self, input: &'a str) -> &'a mut EndpointUtils {
+    self.str_iterator(vec!["sort ", input, " asc;"])
+  }
+
+  pub fn offset(&'a mut self, input: &'a str) -> &'a mut EndpointUtils {
+    self.str_iterator(vec!["offset ", input, ";"])
+  }
   
   pub fn search(&'a mut self, input: &'a str) -> &'a mut EndpointUtils {
     self.str_iterator(vec!["search ", "\"", input, "\"", ";"])
