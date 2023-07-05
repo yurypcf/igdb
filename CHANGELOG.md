@@ -8,6 +8,11 @@ A [separate changelog is kept for rand_core](rand_core/CHANGELOG.md).
 
 You may also find the [Upgrade Guide](https://rust-random.github.io/book/update.html) useful.
 
+## v0.2.0 - 2023-07-04
+### Added
+- Character full attributes, including Enum access to enumerated attributes (Gender and Species)
+- Public crate method to access the API response as JSON
+
 ## v0.1.0 - 2023-07-01
 ### Added
 - API wrapper using [reqwest](https://docs.rs/reqwest/latest/reqwest/)
