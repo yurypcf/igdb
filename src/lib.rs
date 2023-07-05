@@ -124,19 +124,33 @@ mod tests {
     let client_id = env::var("TWITCH_CLIENT_ID").unwrap();
     let api_wrapper = APIWrapper::new(&access_token, &client_id).unwrap();
 
-    let specific_id_characters: Vec<Character> = api_wrapper.characters()
-      .fields("name")
-      .where_like("id = (8,9,11)")
+    let test_characters: Vec<Character> = api_wrapper.characters()
+      .fields("*")
+      .where_like("gender != null")
+      .where_like("species != null")
       .request()
       .unwrap();
 
-    let expected_result: Vec<Character> = vec![
-      Character { id: 8, name: String::from("Liara T´Soni") },
-      Character { id: 9, name: String::from("Garrus Vakarian") },
-      Character { id: 11, name: String::from("Matriarch Benezia") }
-    ];
+    let expected_character_result = Character {
+      id: 4445,
+      akas: None,
+      country_name: None,
+      description: None,
+      created_at: Some(1431216000),
+      games: Some(vec![380, 1219, 1221, 2993]),
+      gender: Some(0),
+      mug_shot: Some(3620),
+      name: Some(String::from("Beast")),
+      slug: Some(String::from("beast")),
+      species: Some(5),
+      updated_at: Some(1472601600),
+      url: Some(String::from("https://www.igdb.com/characters/beast")),
+      checksum: Some(String::from("eb661aaf-a1e1-4acf-b48a-14b8aaa26a52"))
+    };
 
-    assert_eq!(&expected_result, &specific_id_characters)
+    assert_eq!(&test_characters[0], &expected_character_result);
+    assert_eq!(&test_characters[0].gender(), "Male");
+    assert_eq!(&test_characters[0].species(), "Unknown");
   }
 
   // Testing SEARCH apicalypse query
