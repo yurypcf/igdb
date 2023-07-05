@@ -41,14 +41,34 @@ impl APIWrapper {
     where
       D: DeserializeOwned,
     {
+      Ok(
+        self
+          .http_client
+          .post(format!("{}/{}/{}", BASE_URL, VERSION, request_endpoint))
+          .body(body)
+          .send()
+          .unwrap()
+          .json()
+          .unwrap()
+      )
+    }
+
+    fn post_json_response(
+      &self,
+      body: String,
+      request_endpoint: &str
+    ) -> Result<Vec<serde_json::Value>>
+    {
         let response = self
           .http_client
           .post(format!("{}/{}/{}", BASE_URL, VERSION, request_endpoint))
           .body(body)
           .send()
+          .unwrap()
+          .text()
           .unwrap();
 
-        Ok(response.json().unwrap())
+        Ok(serde_json::from_str(&response).unwrap())
     }
 
     #[cfg(feature = "game")]
@@ -215,4 +235,42 @@ mod tests {
     assert_eq!(&second_expected_result, &games_with_offset_desc);
   }
 
+  #[test]
+  fn json_response_test() {
+    let access_token = env::var("TWITCH_ACCESS_TOKEN").unwrap();
+    let client_id = env::var("TWITCH_CLIENT_ID").unwrap();
+    let api_wrapper = APIWrapper::new(&access_token, &client_id).unwrap();
+
+    let test_characters: Vec<serde_json::Value> = api_wrapper.characters()
+      .fields("name, gender, country_name")
+      .where_like("gender != null")
+      .limit("4")
+      .request_json()
+      .unwrap();
+
+    let expected_result = vec![
+      serde_json::json!({
+        "gender": 0,
+        "id": 4445,
+        "name": "Beast"
+      }),
+      serde_json::json!({
+        "gender": 0,
+        "id": 8988,
+        "name": "Mr. Wong"
+      }),
+      serde_json::json!({
+        "gender": 1,
+        "id": 1143,
+        "name": "Annie"
+      }), 
+      serde_json::json!({
+        "gender": 0,
+        "id": 6032,
+        "name": "Richtofen"
+      })
+    ];
+
+    assert_eq!(&test_characters, &expected_result);
+  }
 }

@@ -55,4 +55,10 @@ impl<'a> EndpointUtils<'a> {
     let body = self.query_string.join("");
     self.wrapper.post(body, &format!("{}/", self.endpoint))
   }
+
+  pub fn request_json(&'a self) -> Result<Vec<serde_json::Value>>
+  {
+    let body = self.query_string.join("");
+    self.wrapper.post_json_response(body, &format!("{}/", self.endpoint))
+  }
 }
