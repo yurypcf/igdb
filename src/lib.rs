@@ -41,14 +41,34 @@ impl APIWrapper {
     where
       D: DeserializeOwned,
     {
+      Ok(
+        self
+          .http_client
+          .post(format!("{}/{}/{}", BASE_URL, VERSION, request_endpoint))
+          .body(body)
+          .send()
+          .unwrap()
+          .json()
+          .unwrap()
+      )
+    }
+
+    fn post_json_response(
+      &self,
+      body: String,
+      request_endpoint: &str
+    ) -> Result<Vec<serde_json::Value>>
+    {
         let response = self
           .http_client
           .post(format!("{}/{}/{}", BASE_URL, VERSION, request_endpoint))
           .body(body)
           .send()
+          .unwrap()
+          .text()
           .unwrap();
 
-        Ok(response.json().unwrap())
+        Ok(serde_json::from_str(&response).unwrap())
     }
 
     #[cfg(feature = "game")]
