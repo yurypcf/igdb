@@ -6,15 +6,16 @@ If you would like to help the project, pull requests and suggestions are always 
 ## Installation
 This crate is using [cargo-features](https://doc.rust-lang.org/cargo/reference/features.html) so your project compiles only code related to the endpoint you'll be using.
 If you're querying only `games` and `characters` endpoint, `Cargo.toml` should look like this:
+
 ```toml
 [dependencies]
-igdb = { "0.1.0", default-features = false, features = ["game", "character"]}
+rusty_igdb = { "0.2.0", default-features = false, features = ["game", "character"]}
 ```
 Unless you want the entire codebase from the crate containing all endpoits methods and structs
 add this to your `Cargo.toml`:
 ```toml
 [dependencies]
-igdb = "0.1.0"
+rusty_igdb = "0.2.0"
 ```
 ## Usage
 ##### IGDB requires Twitch access credentials to work.
