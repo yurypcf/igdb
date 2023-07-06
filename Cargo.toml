@@ -1,6 +1,6 @@
 [package]
 name = "rusty_igdb"
-version = "0.2.0"
+version = "0.3.0"
 edition = "2021"
 description = "A simple IGDB (Internet Game Database) API wrapper for Rust users"
 license = "MIT"
