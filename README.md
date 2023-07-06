@@ -9,13 +9,13 @@ If you're querying only `games` and `characters` endpoint, `Cargo.toml` should l
 
 ```toml
 [dependencies]
-rusty_igdb = { "0.2.0", default-features = false, features = ["game", "character"]}
+rusty_igdb = { "0.3.0", default-features = false, features = ["game", "character"]}
 ```
 Unless you want the entire codebase from the crate containing all endpoits methods and structs
 add this to your `Cargo.toml`:
 ```toml
 [dependencies]
-rusty_igdb = "0.2.0"
+rusty_igdb = "0.3.0"
 ```
 ## Usage
 ##### IGDB requires Twitch access credentials to work.
@@ -54,4 +54,55 @@ fn main() {
 ```
 This example used **environment variables** to store the Twitch retrieved credentials, and then accessing with the rust standard feature `std::env`. In your personal project, you can manage these credentials as you please.
 
+#### JSON response
+
+The crate offers a JSON public method, so you can customize the response content into your project.
+`Value` represents the `serde_json::Value` struct in the below example.
+[See the serde_json crate for more information about.](https://docs.rs/serde_json/latest/serde_json/value/index.html)
+
+```rust
+    let test_characters: Vec<Value> = api_wrapper.characters()
+      .fields("name, gender, country_name")
+      .where_like("gender != null")
+      .limit("2")
+      .request_json()
+      .unwrap();
+    
+    /*
+    response should look like this:
+      [{
+        "gender": 0,
+        "id": 4445,
+        "name": "Beast"
+      },
+      {
+        "gender": 0,
+        "id": 8988,
+        "name": "Mr. Wong"
+      }],
+    */
+```
+
+The result should look and accessed like this:
+
+```json
+      [{
+        "gender": 0,
+        "id": 4445,
+        "name": "Beast"
+      },
+      {
+        "gender": 0,
+        "id": 8988,
+        "name": "Mr. Wong"
+      }]
+```
+```rust
+  let first_character = &test_characters[0]["gender"];
+```
+## License
+Cargo is primarily distributed under the terms of both the MIT license
+and the Apache License (Version 2.0).
+
+See [LICENSE-APACHE](LICENSE-APACHE) and [LICENSE-MIT](LICENSE-MIT) for details.
 
