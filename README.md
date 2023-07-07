@@ -9,13 +9,13 @@ If you're querying only `games` and `characters` endpoint, `Cargo.toml` should l
 
 ```toml
 [dependencies]
-rusty_igdb = { "0.3.0", default-features = false, features = ["game", "character"]}
+rusty_igdb = { "0.3.2", default-features = false, features = ["game", "character"]}
 ```
 Unless you want the entire codebase from the crate containing all endpoits methods and structs
 add this to your `Cargo.toml`:
 ```toml
 [dependencies]
-rusty_igdb = "0.3.0"
+rusty_igdb = "0.3.2"
 ```
 ## Usage
 ##### IGDB requires Twitch access credentials to work.
