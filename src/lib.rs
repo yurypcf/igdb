@@ -1,9 +1,9 @@
 pub mod models;
 mod utils;
 
-use reqwest::{ header:: {HeaderMap, HeaderValue}, blocking::{ Client, Response } };
+use reqwest::{ header:: { HeaderMap, HeaderValue }, blocking::{ Client, Response } };
 use serde::de::DeserializeOwned;
-use utils::{ EndpointUtils, response_handler::Result, response_handler::APIError };
+use utils::{ EndpointUtils, response_handler:: { Result, APIError } };
 
 const BASE_URL: &str = "https://api.igdb.com";
 const VERSION:  &str = "v4";
@@ -44,7 +44,7 @@ impl APIWrapper {
       match self.http_client.post(url).body(body).send() {
         Ok(res) => Ok(res),
         Err(err) => Err(APIError::from(err)),
-    }
+      }
     }
 
     #[cfg(feature = "game")]
@@ -258,16 +258,25 @@ mod tests {
     assert_eq!(5, games_limited_by_5_asc.len());
     assert_eq!(1, games_limited_by_5_asc[0].id);
 
-    let games_with_offset_desc: Vec<Game> = api_wrapper.games()
+    let games_desc_order: Vec<Game> = api_wrapper.games()
       .fields("name")
-      .limit("2")
-      .offset("3")
+      .limit("1")
       .sort_desc("id")
       .request()
       .unwrap();
 
-    assert_eq!(2, games_with_offset_desc.len());
-    assert_eq!(255523, games_with_offset_desc[0].id);
+    let last_id = games_desc_order.last().unwrap().id;
+    assert_eq!(last_id, games_desc_order[0].id);
+
+    let games_offset: Vec<Game> = api_wrapper.games()
+      .fields("name")
+      .limit("5")
+      .offset("3")
+      .sort_asc("id")
+      .request()
+      .unwrap();
+
+    assert_eq!(7, games_offset[3].id);
   }
 
   #[test]
@@ -307,5 +316,25 @@ mod tests {
     ];
 
     assert_eq!(&test_characters, &expected_result);
+  }
+
+  #[test]
+  fn api_error() {
+    let access_token = env::var("TWITCH_ACCESS_TOKEN").unwrap();
+    let client_id = env::var("TWITCH_CLIENT_ID").unwrap();
+    let api_wrapper = APIWrapper::new(&access_token, &client_id).unwrap();
+
+    let errored_call: Result<Vec<Genre>> = api_wrapper.genres()
+      .fields("name")
+      .search("Puzzle")
+      .request();
+
+    let expected_result = APIError::from_raw(
+      "400".to_string(),
+      "[\n  {\n    \"title\": \"Search Exception\",\n    \"status\": 400,\n    \"cause\": \"Cannot search for genre\",\n    \"details\": \"Searchable endpoints: Characters, Collections, Games, Platforms, Themes\"\n  }\n]".to_string()
+    );
+
+    assert!(&errored_call.is_err());
+    assert_eq!(&expected_result, &errored_call.err().unwrap())
   }
 }
