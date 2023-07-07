@@ -8,6 +8,11 @@ A [separate changelog is kept for rand_core](rand_core/CHANGELOG.md).
 
 You may also find the [Upgrade Guide](https://rust-random.github.io/book/update.html) useful.
 
+## v0.3.2 - 2023-07-07
+### Tests/Project Organization
+- Separated Integration tests location to improve lib.rs readability
+- Placing the tests into a test specific path
+
 ## v0.3.1 - 2023-07-07
 ### Fixed
 - IGDB API error responses being parsed to be user friendly
