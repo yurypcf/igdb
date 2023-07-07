@@ -8,6 +8,10 @@ A [separate changelog is kept for rand_core](rand_core/CHANGELOG.md).
 
 You may also find the [Upgrade Guide](https://rust-random.github.io/book/update.html) useful.
 
+## v0.3.1 - 2023-07-07
+### Fixed
+- IGDB API error responses being parsed to be user friendly
+
 ## v0.3.0 - 2023-07-05
 ### Added
 - Game full attributes, including Enum access to enumerated attributes
