@@ -1,4 +1,4 @@
-use crate::{APIWrapper, utils::response_handler::Result};
+use crate::{APIWrapper, utils::response_handler::{ Result, APIError }};
 use serde::de::DeserializeOwned;
 
 pub struct EndpointUtils<'a>{
@@ -7,6 +7,7 @@ pub struct EndpointUtils<'a>{
   pub endpoint: &'a str,
 }
 
+type JSONValue = serde_json::Value;
 
 impl<'a> EndpointUtils<'a> {
   pub fn fields(&'a mut self, input: &'a str) -> &'a mut EndpointUtils {
@@ -53,12 +54,44 @@ impl<'a> EndpointUtils<'a> {
     D: DeserializeOwned,
   {
     let body = self.query_string.join("");
-    self.wrapper.post(body, &format!("{}/", self.endpoint))
+    let response = self.wrapper.post::<D>(body, &format!("{}/", self.endpoint));
+    
+
+    if let Ok(res) =  response {
+      if res.status() != 200 {
+        return Err(APIError::from_raw(
+          res.status().as_str().to_string(),
+          res.text().unwrap()
+        ))  
+      }
+
+      match res.json() {
+        Ok(result) => Ok(result),
+        Err(err) => Err(APIError::from(err))
+      }
+    } else {
+      Err(APIError::from(response.err().unwrap()))
+    }
   }
 
-  pub fn request_json(&'a self) -> Result<Vec<serde_json::Value>>
+  pub fn request_json(&'a self) -> Result<Vec<JSONValue>>
   {
     let body = self.query_string.join("");
-    self.wrapper.post_json_response(body, &format!("{}/", self.endpoint))
+    let response = self.wrapper.post::<JSONValue>(body, &format!("{}/", self.endpoint));
+
+    if let Ok(res) =  response {
+      let response_raw_text = res.text();
+
+      if let Ok(raw_text) = response_raw_text {
+        match serde_json::from_str(&raw_text) {
+          Ok(result) => Ok(result),
+          Err(err) => Err(APIError::from(err))
+        }
+      } else {
+        Err(APIError::from(response_raw_text.err().unwrap()))
+      }
+    } else {
+      Err(APIError::from(response.err().unwrap()))
+    }
   }
 }
