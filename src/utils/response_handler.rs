@@ -33,3 +33,9 @@ impl From<serde_qs::Error> for APIError {
         APIError::from_raw("HttpClientError".to_string(), format!("Sort options parse error: {}", value))
     } 
 }
+
+impl From<serde_json::Error> for APIError {
+  fn from(value: serde_json::Error) -> APIError {
+		APIError::from_raw("HttpClientError".to_string(), format!("Sort options parse error: {}", value))
+  } 
+}
