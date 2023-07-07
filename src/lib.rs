@@ -1,10 +1,9 @@
 pub mod models;
 mod utils;
 
-use reqwest::{ header::HeaderMap, header::HeaderValue, blocking::Client };
-use serde::{ de::DeserializeOwned };
-use utils::EndpointUtils;
-use utils::response_handler::Result;
+use reqwest::{ header:: {HeaderMap, HeaderValue}, blocking::{ Client, Response } };
+use serde::de::DeserializeOwned;
+use utils::{ EndpointUtils, response_handler::Result, response_handler::APIError };
 
 const BASE_URL: &str = "https://api.igdb.com";
 const VERSION:  &str = "v4";
