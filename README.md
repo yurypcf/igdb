@@ -101,8 +101,7 @@ The result should look and accessed like this:
   let first_character = &test_characters[0]["gender"];
 ```
 ## License
-Cargo is primarily distributed under the terms of both the MIT license
-and the Apache License (Version 2.0).
+Cargo is primarily distributed under the terms of Apache License (Version 2.0).
 
-See [LICENSE-APACHE](LICENSE-APACHE) and [LICENSE-MIT](LICENSE-MIT) for details.
+See [LICENSE-APACHE](LICENSE-APACHE)
 
