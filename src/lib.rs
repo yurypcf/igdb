@@ -61,6 +61,21 @@ impl APIWrapper {
     pub fn genres<'a>(&'a self) -> EndpointUtils<'a>{
       EndpointUtils { wrapper: self, query_string: Vec::new(), endpoint: "genres"}
     }
+
+    #[cfg(feature = "collection")]
+    pub fn collections<'a>(&'a self) -> EndpointUtils<'a>{
+      EndpointUtils { wrapper: self, query_string: Vec::new(), endpoint: "collections"}
+    }
+
+    #[cfg(feature = "platform")]
+    pub fn platforms<'a>(&'a self) -> EndpointUtils<'a>{
+      EndpointUtils { wrapper: self, query_string: Vec::new(), endpoint: "platforms"}
+    }
+
+    #[cfg(feature = "theme")]
+    pub fn themes<'a>(&'a self) -> EndpointUtils<'a>{
+      EndpointUtils { wrapper: self, query_string: Vec::new(), endpoint: "themes"}
+    }
 }
 
 #[cfg(test)]
