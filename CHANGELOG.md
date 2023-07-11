@@ -8,6 +8,15 @@ A [separate changelog is kept for rand_core](rand_core/CHANGELOG.md).
 
 You may also find the [Upgrade Guide](https://rust-random.github.io/book/update.html) useful.
 
+## v1.0.0 - 2023-07-11
+### Added
+- Theme full attributes, including Enum access to enumerated attributes
+- Platform full attributes, including Enum access to enumerated attributes
+- Colllection full attributes, including Enum access to enumerated attributes
+
+### Build
+- Removed `serde_qs`, as it has no use in this crate
+
 ## v0.3.2 - 2023-07-07
 ### Tests/Project Organization
 - Separated Integration tests location to improve lib.rs readability
