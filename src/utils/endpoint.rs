@@ -49,15 +49,13 @@ impl<'a> EndpointUtils<'a> {
     self
   }
 
-  pub fn request<D>(&'a self) -> Result<Vec<D>>
+  pub fn request<D>(&'a mut self) -> Result<Vec<D>>
   where
     D: DeserializeOwned,
   {
-    let body = self.query_string.join("");
-    let response = self.wrapper.post::<D>(body, &format!("{}/", self.endpoint));
+    let response = self.build_response::<D>();
     
-
-    if let Ok(res) =  response {
+    if let Ok(res) = response {
       if res.status() != 200 {
         return Err(APIError::from_raw(
           res.status().as_str().to_string(),
@@ -70,28 +68,45 @@ impl<'a> EndpointUtils<'a> {
         Err(err) => Err(APIError::from(err))
       }
     } else {
-      Err(APIError::from(response.err().unwrap()))
+        Err(APIError::from(response.err().unwrap()))
     }
   }
 
-  pub fn request_json(&'a self) -> Result<Vec<JSONValue>>
+  pub fn request_json(&'a mut self) -> Result<Vec<JSONValue>>
   {
-    let body = self.query_string.join("");
-    let response = self.wrapper.post::<JSONValue>(body, &format!("{}/", self.endpoint));
+    let response = self.build_response::<JSONValue>();
 
-    if let Ok(res) =  response {
-      let response_raw_text = res.text();
+    match response {
+      Ok(res) => {
+        let response_raw_text = res.text();
 
-      if let Ok(raw_text) = response_raw_text {
-        match serde_json::from_str(&raw_text) {
-          Ok(result) => Ok(result),
-          Err(err) => Err(APIError::from(err))
+        if let Ok(raw_text) = response_raw_text {
+          match serde_json::from_str(&raw_text) {
+            Ok(result) => Ok(result),
+            Err(err) => Err(APIError::from(err))
+          }
+        } else {
+          Err(APIError::from(response_raw_text.err().unwrap()))
         }
-      } else {
-        Err(APIError::from(response_raw_text.err().unwrap()))
       }
-    } else {
-      Err(APIError::from(response.err().unwrap()))
+      Err(_) => Err(APIError::from(response.err().unwrap())),
     }
+  }
+
+  fn build_response<D>(&'a mut self) -> Result<reqwest::blocking::Response> where D: DeserializeOwned {
+    let mut body = self.query_string.join("");
+  
+    if should_append_body(&body) {
+      body.push_str("fields *;")
+    }
+  
+    self.wrapper.post::<D>(body, &format!("{}/", self.endpoint))
   }
 }
+
+fn should_append_body(body: &String) -> bool {
+  !body.contains("fields")
+}
+
+
+
