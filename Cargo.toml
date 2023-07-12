@@ -1,6 +1,6 @@
 [package]
 name = "rusty_igdb"
-version = "0.3.2"
+version = "1.0.0"
 edition = "2021"
 description = "A simple IGDB (Internet Game Database) API wrapper for Rust users"
 license = "MIT"
@@ -11,10 +11,19 @@ license = "MIT"
 reqwest = { version = "0.11", features = ["json", "blocking"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1.0.99"
-serde_qs = "0.12.0"
 
 [features]
-default = ["game", "character", "genre"]
+default = [
+  "game",
+  "character",
+  "genre",
+  "platform",
+  "collection",
+  "theme",
+]
 game = []
 character = []
 genre = []
+platform = []
+collection = []
+theme = []
