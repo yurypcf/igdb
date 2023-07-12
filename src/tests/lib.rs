@@ -215,6 +215,7 @@ fn sorting_test() {
   assert_eq!(7, games_offset[3].id);
 }
 
+// Testing REQUEST_JSON() API Wrapper method
 #[test]
 fn json_response_test() {
   let access_token = env::var("TWITCH_ACCESS_TOKEN").unwrap();
@@ -254,6 +255,7 @@ fn json_response_test() {
   assert_eq!(&test_characters, &expected_result);
 }
 
+// Testing API Error being treated to consumer
 #[test]
 fn api_error() {
   let access_token = env::var("TWITCH_ACCESS_TOKEN").unwrap();
@@ -272,4 +274,38 @@ fn api_error() {
 
   assert!(&errored_call.is_err());
   assert_eq!(&expected_result, &errored_call.err().unwrap())
+}
+
+// Testing the non presence of fields query method should be returning with all endpoint fields (fields *;)
+#[test]
+fn automatic_fields_query() {
+  let access_token = env::var("TWITCH_ACCESS_TOKEN").unwrap();
+  let client_id = env::var("TWITCH_CLIENT_ID").unwrap();
+  let api_wrapper = APIWrapper::new(&access_token, &client_id).unwrap();
+
+  // excluding description to preserve lines (solid snake description too big)
+  let solid_snake_chars_vec: Vec<Character> = api_wrapper.characters()
+    .search("Solid Snake")
+    .exclude("description")
+    .request()
+    .unwrap();
+
+  let expected_solid_snake_result = Character {
+    id: 5352,
+    akas: Some(vec!["David".to_string(), "Old Snake".to_string()]),
+    country_name: None,
+    description: None,
+    created_at: Some(1438905600),
+    games: Some(vec![375, 4006]),
+    gender: Some(0),
+    mug_shot: Some(4019),
+    name: Some(String::from("Solid Snake")),
+    slug: Some(String::from("solid-snake")),
+    species: Some(1),
+    updated_at: Some(1604361600),
+    url: Some(String::from("https://www.igdb.com/characters/solid-snake")),
+    checksum: Some(String::from("ad9959dd-c6b6-1416-5c2b-f0f4ce3fd334"))
+  };
+
+  assert_eq!(&expected_solid_snake_result, &solid_snake_chars_vec[0])
 }

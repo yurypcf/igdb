@@ -59,6 +59,16 @@ fn main() {
 ```
 This example used **environment variables** to store the Twitch retrieved credentials, and then accessing with the rust standard feature `std::env`. In your personal project, you can manage these credentials as you please.
 
+You can avoid typing `fields()` query method if you want a full fields response
+This would return all fields related to characters that contains Solid Snake
+
+```rust
+  // no .fields() query method returns every field from endpoint
+  let solid_snake_chars_vec: Vec<Character> = api_wrapper.characters()
+    .search("Solid Snake")
+    .request()
+    .unwrap();
+```
 #### JSON response
 
 The crate offers a JSON public method, so you can customize the response content into your project.
