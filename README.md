@@ -1,6 +1,7 @@
 # IGDB API Rust Wrapper
 
 [![Crates.io](https://img.shields.io/crates/v/rusty-igdb.svg)](https://crates.io/crates/rusty_igdb)
+[![CI/CD](https://github.com/yurypcf/igdb/workflows/rust.yml/badge.svg)](https://github.com/yurypcf/igdb/workflows/rust.yml)
 [![Apache-2 licensed](https://img.shields.io/crates/l/rusty-igdb.svg)](./LICENSE-APACHE)
 
 
@@ -14,14 +15,17 @@ If you're querying only `games` and `characters` endpoint, `Cargo.toml` should l
 
 ```toml
 [dependencies]
-rusty_igdb = { "1.0.0", default-features = false, features = ["game", "character"]}
+rusty_igdb = { "1.0.1", default-features = false, features = ["game", "character"]}
 ```
 Unless you want the entire codebase from the crate containing all endpoits methods and structs
 add this to your `Cargo.toml`:
 ```toml
 [dependencies]
-rusty_igdb = "1.0.0"
+rusty_igdb = "1.0.1"
 ```
+
+Also, WARNING: this package uses [rust nightly build](https://doc.rust-lang.org/book/appendix-07-nightly-rust.html). Be sure to have installed.
+
 ## Usage
 ##### IGDB requires Twitch access credentials to work.
 You can read how to retrieve those credentials [here](https://api-docs.igdb.com/#account-creation).

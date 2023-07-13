@@ -9,6 +9,16 @@ A [separate changelog is kept for rand_core](rand_core/CHANGELOG.md).
 You may also find the [Upgrade Guide](https://rust-random.github.io/book/update.html) useful.
 
 ## v1.0.0 - 2023-07-12
+### Tests
+- Removed API directly call and responses
+- Added mocked tests
+
+### Workflow
+- Added github actions building, checking and linting the project on every branch push and pull request
+### Lint
+- Linted all project accordingly to `cargo fmt` and `cargo clippy`
+
+## v1.0.0 - 2023-07-12
 ### Added
 - Theme full attributes, including Enum access to enumerated attributes
 - Platform full attributes, including Enum access to enumerated attributes
