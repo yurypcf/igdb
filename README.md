@@ -6,11 +6,11 @@
 
 ## Table Of Contents
 
-- [Installation ✨](#installation)
+- [Installation](#installation)
 - [Usage](#usage)
   - [Basic Rust usage](#basic-rust-usage)
   - [JSON response](#json-response)
-- [Roadmap 🚧](#roadmap-)
+- [Roadmap](#roadmap-)
 - [License](#license)
 
 #### [Internet Game Database API](https://www.igdb.com/api) crate. With the igdb crate, you can retrieve information on any of IGDB API endpoints.
