@@ -1,13 +1,19 @@
 # IGDB API Rust Wrapper
 
 [![Crates.io](https://img.shields.io/crates/v/rusty-igdb.svg)](https://crates.io/crates/rusty_igdb)
-[![CI/CD](https://github.com/yurypcf/igdb/workflows/rust.yml/badge.svg)](https://github.com/yurypcf/igdb/workflows/rust.yml)
+[![CI/CD](https://github.com/yurypcf/igdb/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/yurypcf/igdb/actions/workflows/ci-cd.yml)
 [![Apache-2 licensed](https://img.shields.io/crates/l/rusty-igdb.svg)](./LICENSE-APACHE)
-
 
 #### [Internet Game Database API](https://www.igdb.com/api) crate. With the igdb crate, you can retrieve information on any of IGDB API endpoints.
 
 If you would like to help the project, pull requests and suggestions are always welcome :)
+## Table Of Contents
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Basic Rust usage](#basic-rust-usage)
+  - [JSON response](#json-response)
+- [Roadmap](#roadmap-)
+- [License](#license)
 
 ## Installation
 This crate is using [cargo-features](https://doc.rust-lang.org/cargo/reference/features.html) so your project compiles only code related to the endpoint you'll be using.
@@ -27,6 +33,9 @@ rusty_igdb = "1.0.1"
 Also, WARNING: this package uses [rust nightly build](https://doc.rust-lang.org/book/appendix-07-nightly-rust.html). Be sure to have installed.
 
 ## Usage
+
+#### Basic Rust usage
+
 ##### IGDB requires Twitch access credentials to work.
 You can read how to retrieve those credentials [here](https://api-docs.igdb.com/#account-creation).
 With **Twitch Access Token** and **Twitch Client ID** in hands, we can bring IGDB API wrapper into scope like this:
@@ -119,6 +128,11 @@ The result should look and accessed like this:
 ```rust
   let first_character = &test_characters[0]["gender"];
 ```
+
+## Roadmap
+
+- Remaining IGDB Endpoints (see [milestone](https://github.com/yurypcf/igdb/milestone/1))
+
 ## License
 Cargo is primarily distributed under the terms of Apache License (Version 2.0).
 
