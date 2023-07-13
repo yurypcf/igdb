@@ -35,9 +35,7 @@ impl APIWrapper {
         Ok(wrapper)
     }
 
-    fn post<D>(&self, body: String, request_endpoint: &str) -> Result<Response>
-    where
-        D: DeserializeOwned,
+    fn post(&self, body: String, request_endpoint: &str) -> Result<Response>
     {
         let url = format!("{}/{}/{}", BASE_URL, VERSION, request_endpoint);
         match self.http_client.post(url).body(body).send() {
@@ -47,7 +45,7 @@ impl APIWrapper {
     }
 
     #[cfg(feature = "game")]
-    pub fn games<'a>(&'a self) -> EndpointUtils<'a> {
+    pub fn games(&self) -> EndpointUtils<'_> {
         EndpointUtils {
             wrapper: self,
             query_string: Vec::new(),
@@ -56,7 +54,7 @@ impl APIWrapper {
     }
 
     #[cfg(feature = "character")]
-    pub fn characters<'a>(&'a self) -> EndpointUtils<'a> {
+    pub fn characters(&self) -> EndpointUtils<'_> {
         EndpointUtils {
             wrapper: self,
             query_string: Vec::new(),
@@ -65,7 +63,7 @@ impl APIWrapper {
     }
 
     #[cfg(feature = "genre")]
-    pub fn genres<'a>(&'a self) -> EndpointUtils<'a> {
+    pub fn genres(&self) -> EndpointUtils<'_> {
         EndpointUtils {
             wrapper: self,
             query_string: Vec::new(),
@@ -74,7 +72,7 @@ impl APIWrapper {
     }
 
     #[cfg(feature = "collection")]
-    pub fn collections<'a>(&'a self) -> EndpointUtils<'a> {
+    pub fn collections(&self) -> EndpointUtils<'_> {
         EndpointUtils {
             wrapper: self,
             query_string: Vec::new(),
@@ -83,7 +81,7 @@ impl APIWrapper {
     }
 
     #[cfg(feature = "platform")]
-    pub fn platforms<'a>(&'a self) -> EndpointUtils<'a> {
+    pub fn platforms(&self) -> EndpointUtils<'_> {
         EndpointUtils {
             wrapper: self,
             query_string: Vec::new(),
@@ -92,7 +90,7 @@ impl APIWrapper {
     }
 
     #[cfg(feature = "theme")]
-    pub fn themes<'a>(&'a self) -> EndpointUtils<'a> {
+    pub fn themes(&self) -> EndpointUtils<'_> {
         EndpointUtils {
             wrapper: self,
             query_string: Vec::new(),

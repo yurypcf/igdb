@@ -71,7 +71,7 @@ impl<'a> EndpointUtils<'a> {
                 Err(err) => Err(APIError::from(err)),
             }
         } else {
-            Err(APIError::from(response.err().unwrap()))
+            Err(response.err().unwrap())
         }
     }
 
@@ -91,7 +91,7 @@ impl<'a> EndpointUtils<'a> {
                     Err(APIError::from(response_raw_text.err().unwrap()))
                 }
             }
-            Err(_) => Err(APIError::from(response.err().unwrap())),
+            Err(_) => Err(response.err().unwrap()),
         }
     }
 
@@ -105,10 +105,10 @@ impl<'a> EndpointUtils<'a> {
             body.push_str("fields *;")
         }
 
-        self.wrapper.post::<D>(body, &format!("{}/", self.endpoint))
+        self.wrapper.post(body, &format!("{}/", self.endpoint))
     }
 }
 
-fn should_append_body(body: &String) -> bool {
+fn should_append_body(body: &str) -> bool {
     !body.contains("fields")
 }
