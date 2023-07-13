@@ -5,7 +5,6 @@ use reqwest::{
     blocking::{Client, Response},
     header::{HeaderMap, HeaderValue},
 };
-use serde::de::DeserializeOwned;
 use utils::{
     response_handler::{APIError, Result},
     EndpointUtils,
