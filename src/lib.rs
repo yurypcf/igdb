@@ -34,8 +34,7 @@ impl APIWrapper {
         Ok(wrapper)
     }
 
-    fn post(&self, body: String, request_endpoint: &str) -> Result<Response>
-    {
+    fn post(&self, body: String, request_endpoint: &str) -> Result<Response> {
         let url = format!("{}/{}/{}", BASE_URL, VERSION, request_endpoint);
         match self.http_client.post(url).body(body).send() {
             Ok(res) => Ok(res),

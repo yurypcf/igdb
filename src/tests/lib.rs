@@ -1,55 +1,53 @@
 use crate::{
-  models::*,
-  utils::response_handler::{ Result, APIError }
+    models::*,
+    utils::response_handler::{APIError, Result},
 };
-use std::env;
-use std::path::PathBuf;
-use std::fs::read_to_string;
 use pretty_assertions::assert_eq;
+use std::env;
+use std::fs::read_to_string;
+use std::path::PathBuf;
 
 struct EndpointUtilsTest;
 
 trait EndpointUtilsTestRequestor {
-  type VecType;
+    type VecType;
 
-  fn request() -> Result<Vec<Self::VecType>>;
-  fn request_error() -> Result<Vec<Self::VecType>>;
+    fn request() -> Result<Vec<Self::VecType>>;
+    fn request_error() -> Result<Vec<Self::VecType>>;
 }
 
-
 impl EndpointUtilsTestRequestor for EndpointUtilsTest {
-  type VecType = Game;
-  
-  fn request() -> Result<Vec<Self::VecType>>{
-    let mut root_path = root_path();
-    root_path.push("src/tests/resources/game_response_test.txt");
-    
-    let data = read_to_string(root_path).unwrap();
-    
-    let resp: Vec<Game> = serde_json::from_str(&data).unwrap();
-    
-    Ok(resp)
-  }
+    type VecType = Game;
 
-  fn request_error() -> Result<Vec<Self::VecType>>{
-    let data = r#"invalid data"#;
-    
+    fn request() -> Result<Vec<Self::VecType>> {
+        let mut root_path = root_path();
+        root_path.push("src/tests/resources/game_response_test.txt");
 
-    match serde_json::from_str(&data) {
-      Ok(resp) => Ok(resp),
-      Err(err) => Err(APIError::from(err)),
+        let data = read_to_string(root_path).unwrap();
+
+        let resp: Vec<Game> = serde_json::from_str(&data).unwrap();
+
+        Ok(resp)
     }
-  }
+
+    fn request_error() -> Result<Vec<Self::VecType>> {
+        let data = r#"invalid data"#;
+
+        match serde_json::from_str(&data) {
+            Ok(resp) => Ok(resp),
+            Err(err) => Err(APIError::from(err)),
+        }
+    }
 }
 
 fn root_path() -> PathBuf {
-  PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+    PathBuf::from(env!("CARGO_MANIFEST_DIR"))
 }
 
 // Testing FIELDS apicalypse query
 #[test]
 fn game_response_test() {
-  let game = EndpointUtilsTest::request().unwrap();
+    let game = EndpointUtilsTest::request().unwrap();
 
     let expected_result: Vec<Game> = vec![
     Game {
@@ -118,12 +116,12 @@ fn game_response_test() {
 // Testing API Error being treated to consumer
 #[test]
 fn api_error() {
-  let errored_call = EndpointUtilsTest::request_error().unwrap_err();
+    let errored_call = EndpointUtilsTest::request_error().unwrap_err();
 
-  let expected_result = APIError::from_raw(
-    "HttpClientError".to_string(),
-    "Sort options parse error: expected value at line 1 column 1".to_string()
-  );
+    let expected_result = APIError::from_raw(
+        "HttpClientError".to_string(),
+        "Sort options parse error: expected value at line 1 column 1".to_string(),
+    );
 
-  assert_eq!(&expected_result, &errored_call)
+    assert_eq!(&expected_result, &errored_call)
 }
