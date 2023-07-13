@@ -4,18 +4,16 @@
 [![CI/CD](https://github.com/yurypcf/igdb/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/yurypcf/igdb/actions/workflows/ci-cd.yml)
 [![Apache-2 licensed](https://img.shields.io/crates/l/rusty-igdb.svg)](./LICENSE-APACHE)
 
-## Table Of Contents
+#### [Internet Game Database API](https://www.igdb.com/api) crate. With the igdb crate, you can retrieve information on any of IGDB API endpoints.
 
+If you would like to help the project, pull requests and suggestions are always welcome :)
+## Table Of Contents
 - [Installation](#installation)
 - [Usage](#usage)
   - [Basic Rust usage](#basic-rust-usage)
   - [JSON response](#json-response)
 - [Roadmap](#roadmap-)
 - [License](#license)
-
-#### [Internet Game Database API](https://www.igdb.com/api) crate. With the igdb crate, you can retrieve information on any of IGDB API endpoints.
-
-If you would like to help the project, pull requests and suggestions are always welcome :)
 
 ## Installation
 This crate is using [cargo-features](https://doc.rust-lang.org/cargo/reference/features.html) so your project compiles only code related to the endpoint you'll be using.
