@@ -1,24 +1,25 @@
 use crate::{
-  APIWrapper,
-  models::*,
-  utils::response_handler::{ Result, APIError }
+    models::*,
+    utils::response_handler::{APIError, Result},
+    APIWrapper,
 };
 use std::env;
 
 // Testing FIELDS apicalypse query
 #[test]
 fn fields_test() {
-  let access_token = env::var("TWITCH_ACCESS_TOKEN").unwrap();
-  let client_id = env::var("TWITCH_CLIENT_ID").unwrap();
-  let api_wrapper = APIWrapper::new(&access_token, &client_id).unwrap();
+    let access_token = env::var("TWITCH_ACCESS_TOKEN").unwrap();
+    let client_id = env::var("TWITCH_CLIENT_ID").unwrap();
+    let api_wrapper = APIWrapper::new(&access_token, &client_id).unwrap();
 
-  let game: Vec<Game> = api_wrapper.games()
-    .fields("*")
-    .limit("1")
-    .request()
-    .unwrap();
+    let game: Vec<Game> = api_wrapper
+        .games()
+        .fields("*")
+        .limit("1")
+        .request()
+        .unwrap();
 
-  let expected_result: Vec<Game> = vec![
+    let expected_result: Vec<Game> = vec![
     Game {
       id: 176032,
       age_ratings: Some(vec![140062, 140063, 140064, 140065, 140066]),
@@ -73,239 +74,270 @@ fn fields_test() {
       updated_at: Some(1686307285),
       url: Some(String::from("https://www.igdb.com/games/nick-quest")),
       version_parent: None,
-      version_title: None,  
+      version_title: None,
       videos: None,
       websites: Some(vec![235219, 235220, 472706, 553716, 553717]),
     }
   ];
 
-  assert_eq!(&expected_result, &game)
+    assert_eq!(&expected_result, &game)
 }
 
 // Testing EXCLUDE apicalypse query
 #[test]
 fn exclude_test() {
-  let access_token = env::var("TWITCH_ACCESS_TOKEN").unwrap();
-  let client_id = env::var("TWITCH_CLIENT_ID").unwrap();
-  let api_wrapper = APIWrapper::new(&access_token, &client_id).unwrap();
+    let access_token = env::var("TWITCH_ACCESS_TOKEN").unwrap();
+    let client_id = env::var("TWITCH_CLIENT_ID").unwrap();
+    let api_wrapper = APIWrapper::new(&access_token, &client_id).unwrap();
 
-  let genres_without_slug_field: Vec<Genre> = api_wrapper.genres()
-    .fields("name, slug")
-    .exclude("slug")
-    .limit("3")
-    .request()
-    .unwrap();
+    let genres_without_slug_field: Vec<Genre> = api_wrapper
+        .genres()
+        .fields("name, slug")
+        .exclude("slug")
+        .limit("3")
+        .request()
+        .unwrap();
 
-  let expected_result: Vec<Genre> = vec![
-    Genre { id: 4, checksum: None, created_at: None, name: Some(String::from("Fighting")), slug: None, updated_at: None, url: None },
-    Genre { id: 5, checksum: None, created_at: None, name: Some(String::from("Shooter")), slug: None, updated_at: None, url: None },
-    Genre { id: 7, checksum: None, created_at: None, name: Some(String::from("Music")), slug: None, updated_at: None, url: None }
-  ];
+    let expected_result: Vec<Genre> = vec![
+        Genre {
+            id: 4,
+            checksum: None,
+            created_at: None,
+            name: Some(String::from("Fighting")),
+            slug: None,
+            updated_at: None,
+            url: None,
+        },
+        Genre {
+            id: 5,
+            checksum: None,
+            created_at: None,
+            name: Some(String::from("Shooter")),
+            slug: None,
+            updated_at: None,
+            url: None,
+        },
+        Genre {
+            id: 7,
+            checksum: None,
+            created_at: None,
+            name: Some(String::from("Music")),
+            slug: None,
+            updated_at: None,
+            url: None,
+        },
+    ];
 
-  assert_eq!(&expected_result, &genres_without_slug_field)
+    assert_eq!(&expected_result, &genres_without_slug_field)
 }
 
 // Testing WHERE apicalypse query
 #[test]
 fn where_test() {
-  let access_token = env::var("TWITCH_ACCESS_TOKEN").unwrap();
-  let client_id = env::var("TWITCH_CLIENT_ID").unwrap();
-  let api_wrapper = APIWrapper::new(&access_token, &client_id).unwrap();
+    let access_token = env::var("TWITCH_ACCESS_TOKEN").unwrap();
+    let client_id = env::var("TWITCH_CLIENT_ID").unwrap();
+    let api_wrapper = APIWrapper::new(&access_token, &client_id).unwrap();
 
-  let test_characters: Vec<Character> = api_wrapper.characters()
-    .fields("*")
-    .where_like("gender != null")
-    .where_like("species != null")
-    .request()
-    .unwrap();
+    let test_characters: Vec<Character> = api_wrapper
+        .characters()
+        .fields("*")
+        .where_like("gender != null")
+        .where_like("species != null")
+        .request()
+        .unwrap();
 
-  let expected_character_result = Character {
-    id: 4445,
-    akas: None,
-    country_name: None,
-    description: None,
-    created_at: Some(1431216000),
-    games: Some(vec![380, 1219, 1221, 2993]),
-    gender: Some(0),
-    mug_shot: Some(3620),
-    name: Some(String::from("Beast")),
-    slug: Some(String::from("beast")),
-    species: Some(5),
-    updated_at: Some(1472601600),
-    url: Some(String::from("https://www.igdb.com/characters/beast")),
-    checksum: Some(String::from("eb661aaf-a1e1-4acf-b48a-14b8aaa26a52"))
-  };
+    let expected_character_result = Character {
+        id: 4445,
+        akas: None,
+        country_name: None,
+        description: None,
+        created_at: Some(1431216000),
+        games: Some(vec![380, 1219, 1221, 2993]),
+        gender: Some(0),
+        mug_shot: Some(3620),
+        name: Some(String::from("Beast")),
+        slug: Some(String::from("beast")),
+        species: Some(5),
+        updated_at: Some(1472601600),
+        url: Some(String::from("https://www.igdb.com/characters/beast")),
+        checksum: Some(String::from("eb661aaf-a1e1-4acf-b48a-14b8aaa26a52")),
+    };
 
-  assert_eq!(&test_characters[0], &expected_character_result);
-  assert_eq!(&test_characters[0].gender(), "Male");
-  assert_eq!(&test_characters[0].species(), "Unknown");
+    assert_eq!(&test_characters[0], &expected_character_result);
+    assert_eq!(&test_characters[0].gender(), "Male");
+    assert_eq!(&test_characters[0].species(), "Unknown");
 }
 
 // Testing SEARCH apicalypse query
 #[test]
 fn search_test() {
-  let access_token = env::var("TWITCH_ACCESS_TOKEN").unwrap();
-  let client_id = env::var("TWITCH_CLIENT_ID").unwrap();
-  let api_wrapper = APIWrapper::new(&access_token, &client_id).unwrap();
+    let access_token = env::var("TWITCH_ACCESS_TOKEN").unwrap();
+    let client_id = env::var("TWITCH_CLIENT_ID").unwrap();
+    let api_wrapper = APIWrapper::new(&access_token, &client_id).unwrap();
 
-  let ryu_character: Vec<Character> = api_wrapper.characters()
-    .fields("id, name")
-    .search("ryu")
-    .limit("1")
-    .request()
-    .unwrap();
+    let ryu_character: Vec<Character> = api_wrapper
+        .characters()
+        .fields("id, name")
+        .search("ryu")
+        .limit("1")
+        .request()
+        .unwrap();
 
-  let expected_result: Vec<Character> = vec![
-    Character {
-      id: 4975,
-      akas: None,
-      checksum: None,
-      country_name: None,
-      created_at: None,
-      description: None,
-      games: None,
-      gender: None,
-      mug_shot: None,
-      name: Some(String::from("Ryu Hyabusa")),
-      slug: None,
-      species: None,
-      updated_at: None,
-      url: None
-    },
-  ];
+    let expected_result: Vec<Character> = vec![Character {
+        id: 4975,
+        akas: None,
+        checksum: None,
+        country_name: None,
+        created_at: None,
+        description: None,
+        games: None,
+        gender: None,
+        mug_shot: None,
+        name: Some(String::from("Ryu Hyabusa")),
+        slug: None,
+        species: None,
+        updated_at: None,
+        url: None,
+    }];
 
-  assert_eq!(&expected_result, &ryu_character)
+    assert_eq!(&expected_result, &ryu_character)
 }
 
 // Testing LIMIT, OFFSET, SORT ASC, SORT DESC apicalypse queries
 #[test]
 fn sorting_test() {
-  let access_token = env::var("TWITCH_ACCESS_TOKEN").unwrap();
-  let client_id = env::var("TWITCH_CLIENT_ID").unwrap();
-  let api_wrapper = APIWrapper::new(&access_token, &client_id).unwrap();
+    let access_token = env::var("TWITCH_ACCESS_TOKEN").unwrap();
+    let client_id = env::var("TWITCH_CLIENT_ID").unwrap();
+    let api_wrapper = APIWrapper::new(&access_token, &client_id).unwrap();
 
-  let games_limited_by_5_asc: Vec<Game> = api_wrapper.games()
-    .fields("name")
-    .limit("5")
-    .sort_asc("id")
-    .request()
-    .unwrap();
+    let games_limited_by_5_asc: Vec<Game> = api_wrapper
+        .games()
+        .fields("name")
+        .limit("5")
+        .sort_asc("id")
+        .request()
+        .unwrap();
 
-  assert_eq!(5, games_limited_by_5_asc.len());
-  assert_eq!(1, games_limited_by_5_asc[0].id);
+    assert_eq!(5, games_limited_by_5_asc.len());
+    assert_eq!(1, games_limited_by_5_asc[0].id);
 
-  let games_desc_order: Vec<Game> = api_wrapper.games()
-    .fields("name")
-    .limit("1")
-    .sort_desc("id")
-    .request()
-    .unwrap();
+    let games_desc_order: Vec<Game> = api_wrapper
+        .games()
+        .fields("name")
+        .limit("1")
+        .sort_desc("id")
+        .request()
+        .unwrap();
 
-  let last_id = games_desc_order.last().unwrap().id;
-  assert_eq!(last_id, games_desc_order[0].id);
+    let last_id = games_desc_order.last().unwrap().id;
+    assert_eq!(last_id, games_desc_order[0].id);
 
-  let games_offset: Vec<Game> = api_wrapper.games()
-    .fields("name")
-    .limit("5")
-    .offset("3")
-    .sort_asc("id")
-    .request()
-    .unwrap();
+    let games_offset: Vec<Game> = api_wrapper
+        .games()
+        .fields("name")
+        .limit("5")
+        .offset("3")
+        .sort_asc("id")
+        .request()
+        .unwrap();
 
-  assert_eq!(7, games_offset[3].id);
+    assert_eq!(7, games_offset[3].id);
 }
 
 // Testing REQUEST_JSON() API Wrapper method
 #[test]
 fn json_response_test() {
-  let access_token = env::var("TWITCH_ACCESS_TOKEN").unwrap();
-  let client_id = env::var("TWITCH_CLIENT_ID").unwrap();
-  let api_wrapper = APIWrapper::new(&access_token, &client_id).unwrap();
+    let access_token = env::var("TWITCH_ACCESS_TOKEN").unwrap();
+    let client_id = env::var("TWITCH_CLIENT_ID").unwrap();
+    let api_wrapper = APIWrapper::new(&access_token, &client_id).unwrap();
 
-  let test_characters: Vec<serde_json::Value> = api_wrapper.characters()
-    .fields("name, gender, country_name")
-    .where_like("gender != null")
-    .limit("4")
-    .request_json()
-    .unwrap();
+    let test_characters: Vec<serde_json::Value> = api_wrapper
+        .characters()
+        .fields("name, gender, country_name")
+        .where_like("gender != null")
+        .limit("4")
+        .request_json()
+        .unwrap();
 
-  let expected_result = vec![
-    serde_json::json!({
-      "gender": 0,
-      "id": 4445,
-      "name": "Beast"
-    }),
-    serde_json::json!({
-      "gender": 0,
-      "id": 8988,
-      "name": "Mr. Wong"
-    }),
-    serde_json::json!({
-      "gender": 1,
-      "id": 1143,
-      "name": "Annie"
-    }), 
-    serde_json::json!({
-      "gender": 0,
-      "id": 6032,
-      "name": "Richtofen"
-    })
-  ];
+    let expected_result = vec![
+        serde_json::json!({
+          "gender": 0,
+          "id": 4445,
+          "name": "Beast"
+        }),
+        serde_json::json!({
+          "gender": 0,
+          "id": 8988,
+          "name": "Mr. Wong"
+        }),
+        serde_json::json!({
+          "gender": 1,
+          "id": 1143,
+          "name": "Annie"
+        }),
+        serde_json::json!({
+          "gender": 0,
+          "id": 6032,
+          "name": "Richtofen"
+        }),
+    ];
 
-  assert_eq!(&test_characters, &expected_result);
+    assert_eq!(&test_characters, &expected_result);
 }
 
 // Testing API Error being treated to consumer
 #[test]
 fn api_error() {
-  let access_token = env::var("TWITCH_ACCESS_TOKEN").unwrap();
-  let client_id = env::var("TWITCH_CLIENT_ID").unwrap();
-  let api_wrapper = APIWrapper::new(&access_token, &client_id).unwrap();
+    let access_token = env::var("TWITCH_ACCESS_TOKEN").unwrap();
+    let client_id = env::var("TWITCH_CLIENT_ID").unwrap();
+    let api_wrapper = APIWrapper::new(&access_token, &client_id).unwrap();
 
-  let errored_call: Result<Vec<Genre>> = api_wrapper.genres()
-    .fields("name")
-    .search("Puzzle")
-    .request();
+    let errored_call: Result<Vec<Genre>> = api_wrapper
+        .genres()
+        .fields("name")
+        .search("Puzzle")
+        .request();
 
-  let expected_result = APIError::from_raw(
+    let expected_result = APIError::from_raw(
     "400".to_string(),
     "[\n  {\n    \"title\": \"Search Exception\",\n    \"status\": 400,\n    \"cause\": \"Cannot search for genre\",\n    \"details\": \"Searchable endpoints: Characters, Collections, Games, Platforms, Themes\"\n  }\n]".to_string()
   );
 
-  assert!(&errored_call.is_err());
-  assert_eq!(&expected_result, &errored_call.err().unwrap())
+    assert!(&errored_call.is_err());
+    assert_eq!(&expected_result, &errored_call.err().unwrap())
 }
 
 // Testing the non presence of fields query method should be returning with all endpoint fields (fields *;)
 #[test]
 fn automatic_fields_query() {
-  let access_token = env::var("TWITCH_ACCESS_TOKEN").unwrap();
-  let client_id = env::var("TWITCH_CLIENT_ID").unwrap();
-  let api_wrapper = APIWrapper::new(&access_token, &client_id).unwrap();
+    let access_token = env::var("TWITCH_ACCESS_TOKEN").unwrap();
+    let client_id = env::var("TWITCH_CLIENT_ID").unwrap();
+    let api_wrapper = APIWrapper::new(&access_token, &client_id).unwrap();
 
-  // excluding description to preserve lines (solid snake description too big)
-  let solid_snake_chars_vec: Vec<Character> = api_wrapper.characters()
-    .search("Solid Snake")
-    .exclude("description")
-    .request()
-    .unwrap();
+    // excluding description to preserve lines (solid snake description too big)
+    let solid_snake_chars_vec: Vec<Character> = api_wrapper
+        .characters()
+        .search("Solid Snake")
+        .exclude("description")
+        .request()
+        .unwrap();
 
-  let expected_solid_snake_result = Character {
-    id: 5352,
-    akas: Some(vec!["David".to_string(), "Old Snake".to_string()]),
-    country_name: None,
-    description: None,
-    created_at: Some(1438905600),
-    games: Some(vec![375, 4006]),
-    gender: Some(0),
-    mug_shot: Some(4019),
-    name: Some(String::from("Solid Snake")),
-    slug: Some(String::from("solid-snake")),
-    species: Some(1),
-    updated_at: Some(1604361600),
-    url: Some(String::from("https://www.igdb.com/characters/solid-snake")),
-    checksum: Some(String::from("ad9959dd-c6b6-1416-5c2b-f0f4ce3fd334"))
-  };
+    let expected_solid_snake_result = Character {
+        id: 5352,
+        akas: Some(vec!["David".to_string(), "Old Snake".to_string()]),
+        country_name: None,
+        description: None,
+        created_at: Some(1438905600),
+        games: Some(vec![375, 4006]),
+        gender: Some(0),
+        mug_shot: Some(4019),
+        name: Some(String::from("Solid Snake")),
+        slug: Some(String::from("solid-snake")),
+        species: Some(1),
+        updated_at: Some(1604361600),
+        url: Some(String::from("https://www.igdb.com/characters/solid-snake")),
+        checksum: Some(String::from("ad9959dd-c6b6-1416-5c2b-f0f4ce3fd334")),
+    };
 
-  assert_eq!(&expected_solid_snake_result, &solid_snake_chars_vec[0])
+    assert_eq!(&expected_solid_snake_result, &solid_snake_chars_vec[0])
 }
