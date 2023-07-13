@@ -132,6 +132,8 @@ The result should look and accessed like this:
 ## Roadmap
 
 - Remaining IGDB Endpoints (see [milestone](https://github.com/yurypcf/igdb/milestone/1))
+- Generate docs.rs
+- Add code coverage
 
 ## License
 Cargo is primarily distributed under the terms of Apache License (Version 2.0).
