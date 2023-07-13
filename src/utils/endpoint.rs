@@ -44,7 +44,6 @@ impl<'a> EndpointUtils<'a> {
         self.str_iterator(vec!["sort ", input, " asc;"])
     }
 
-
     /// Inserts consumer inputs to `offset` statement.
     /// EndpointUtils push formed input into its `query_string` vector attribute. e.g. `["offset 30;"]`
     pub fn offset(&'a mut self, input: &'a str) -> &'a mut EndpointUtils {
@@ -71,7 +70,7 @@ impl<'a> EndpointUtils<'a> {
     }
 
     /// Try to performs request to IGDB API using formed query_string.
-    /// Returns an Result containing either a succesfully response converted to user specified Struct or a APIError 
+    /// Returns an Result containing either a succesfully response converted to user specified Struct or a APIError
     pub fn request<D>(&'a mut self) -> Result<Vec<D>>
     where
         D: DeserializeOwned,

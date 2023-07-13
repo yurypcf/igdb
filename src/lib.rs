@@ -27,12 +27,12 @@ pub struct APIWrapper {
 /// Each query method implemented on EndpointUtils represents a APICalypse query build.
 /// See [APICalypse official documentation](https://apicalypse.io/syntax/) for more information
 pub struct EndpointUtils<'a> {
-  /// Holds the API Wrapper reference so we can perform the post http method
-  pub wrapper: &'a APIWrapper,
-  /// Vector of string slices that represents the query body that will be sent
-  pub query_string: Vec<&'a str>,
-  /// Endpoint representation
-  pub endpoint: &'a str,
+    /// Holds the API Wrapper reference so we can perform the post http method
+    pub wrapper: &'a APIWrapper,
+    /// Vector of string slices that represents the query body that will be sent
+    pub query_string: Vec<&'a str>,
+    /// Endpoint representation
+    pub endpoint: &'a str,
 }
 
 impl APIWrapper {
