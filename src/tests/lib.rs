@@ -33,7 +33,7 @@ impl EndpointUtilsTestRequestor for EndpointUtilsTest {
     fn request_error() -> Result<Vec<Self::VecType>> {
         let data = r#"invalid data"#;
 
-        match serde_json::from_str(&data) {
+        match serde_json::from_str(data) {
             Ok(resp) => Ok(resp),
             Err(err) => Err(APIError::from(err)),
         }

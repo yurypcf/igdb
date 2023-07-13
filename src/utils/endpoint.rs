@@ -56,7 +56,7 @@ impl<'a> EndpointUtils<'a> {
     where
         D: DeserializeOwned,
     {
-        let response = self.build_response::<D>();
+        let response = self.build_response();
 
         if let Ok(res) = response {
             if res.status() != 200 {
@@ -76,7 +76,7 @@ impl<'a> EndpointUtils<'a> {
     }
 
     pub fn request_json(&'a mut self) -> Result<Vec<JSONValue>> {
-        let response = self.build_response::<JSONValue>();
+        let response = self.build_response();
 
         match response {
             Ok(res) => {
@@ -95,10 +95,7 @@ impl<'a> EndpointUtils<'a> {
         }
     }
 
-    fn build_response<D>(&'a mut self) -> Result<reqwest::blocking::Response>
-    where
-        D: DeserializeOwned,
-    {
+    fn build_response(&'a mut self) -> Result<reqwest::blocking::Response> {
         let mut body = self.query_string.join("");
 
         if should_append_body(&body) {
