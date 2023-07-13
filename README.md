@@ -1,7 +1,7 @@
 # IGDB API Rust Wrapper
 
 [![Crates.io](https://img.shields.io/crates/v/rusty-igdb.svg)](https://crates.io/crates/rusty_igdb)
-[![CI/CD](https://github.com/yurypcf/igdb/actions/workflows/rust.yml/badge.svg)](https://github.com/yurypcf/igdb/actions/workflows/rust.yml)
+[![CI/CD](https://github.com/yurypcf/igdb/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/yurypcf/igdb/actions/workflows/ci-cd.yml)
 [![Apache-2 licensed](https://img.shields.io/crates/l/rusty-igdb.svg)](./LICENSE-APACHE)
 
 ## Table Of Contents
