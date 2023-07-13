@@ -1,0 +1,92 @@
+[
+  {
+    "id": 176032,
+    "age_ratings": [
+      140062,
+      140063,
+      140064,
+      140065,
+      140066
+    ],
+    "artworks": [
+      108582
+    ],
+    "category": 0,
+    "cover": 185893,
+    "created_at": 1634075115,
+    "external_games": [
+      2130968,
+      2706463
+    ],
+    "first_release_date": 1568505600,
+    "game_engines": [
+      448
+    ],
+    "game_modes": [
+      1
+    ],
+    "genres": [
+      4,
+      12,
+      16,
+      31
+    ],
+    "involved_companies": [
+      153011
+    ],
+    "multiplayer_modes": [
+      16615
+    ],
+    "name": "Nick Quest",
+    "platforms": [
+      6
+    ],
+    "release_dates": [
+      319506
+    ],
+    "screenshots": [
+      662044,
+      662045,
+      662046,
+      662047,
+      662048
+    ],
+    "similar_games": [
+      13196,
+      37382,
+      55199,
+      81249,
+      96217,
+      101608,
+      103303,
+      106987,
+      112191,
+      115653
+    ],
+    "slug": "nick-quest",
+    "summary": "Nick Quest is a quirky, self-aware little RPG with a lot of character and heart. Packed with detailed maps, dangerous bosses, a great breadth of side quests, amazing dialogue, multiple endings, and a lot of laughs... Nick Quest is a game that will bring you to know a guy and his friends.",
+    "tags": [
+      17,
+      268435460,
+      268435468,
+      268435472,
+      268435487
+    ],
+    "themes": [
+      17
+    ],
+    "updated_at": 1686307285,
+    "url": "https://www.igdb.com/games/nick-quest",
+    "websites": [
+      235219,
+      235220,
+      472706,
+      553716,
+      553717
+    ],
+    "checksum": "56ca73b8-3a8b-80cc-92f0-cc7b1ea66766",
+    "language_supports": [
+      699450
+    ]
+  }
+]

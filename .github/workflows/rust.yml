@@ -1,0 +1,40 @@
+name: Rust
+
+on:
+  push:
+    branches: 
+      - '*'
+  pull_request:
+    branches:
+      [ "main" ]
+
+jobs:
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Update local toolchain
+      run: |
+        rustup update
+        rustup install nightly
+
+    - name: Toolchain info
+      run: |
+        cargo --version --verbose
+        rustc --version
+
+    - name: Lint
+      run: |
+        cargo fmt -- --check
+        cargo clippy -- -D warnings
+
+    - name: Run tests
+      run: |
+        cargo check
+        cargo test --all
+
+    - name: Build
+      run: |
+        cargo build --release
