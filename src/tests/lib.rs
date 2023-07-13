@@ -51,7 +51,7 @@ fn root_path() -> PathBuf {
 fn game_response_test() {
   let game = EndpointUtilsTest::request().unwrap();
 
-  let expected_result: Vec<Game> = vec![
+    let expected_result: Vec<Game> = vec![
     Game {
       id: 176032,
       age_ratings: Some(vec![140062, 140063, 140064, 140065, 140066]),
@@ -112,7 +112,7 @@ fn game_response_test() {
     }
   ];
 
-  assert_eq!(&expected_result, &game)
+    assert_eq!(&expected_result, &game)
 }
 
 // Testing API Error being treated to consumer
