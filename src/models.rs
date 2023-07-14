@@ -1,3 +1,6 @@
+/*!
+    Module containing analogous Structs to IGDB endpoint responses.
+*/
 #[cfg(feature = "game")]
 pub mod game;
 pub use game::Game;
