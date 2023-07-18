@@ -1,5 +1,5 @@
-use serde::Deserialize;
 use crate::utils::response_handler::timestamp_as_string;
+use serde::Deserialize;
 
 #[derive(Deserialize, Debug, PartialEq)]
 pub struct Game {
@@ -77,11 +77,11 @@ impl Game {
     }
 
     pub fn created_at(&self) -> String {
-      timestamp_as_string(self.created_at)
+        timestamp_as_string(self.created_at)
     }
 
     pub fn updated_at(&self) -> String {
-      timestamp_as_string(self.updated_at)
+        timestamp_as_string(self.updated_at)
     }
 }
 
