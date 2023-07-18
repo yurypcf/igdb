@@ -1,4 +1,5 @@
 use serde::Deserialize;
+use crate::utils::response_handler::timestamp_as_string;
 
 #[derive(Deserialize, Debug, PartialEq)]
 pub struct Character {
@@ -6,7 +7,7 @@ pub struct Character {
     pub akas: Option<Vec<String>>,
     pub checksum: Option<String>,
     pub country_name: Option<String>,
-    pub created_at: Option<usize>,
+    pub created_at: Option<i64>,
     pub description: Option<String>,
     pub games: Option<Vec<usize>>,
     pub gender: Option<u8>,
@@ -14,7 +15,7 @@ pub struct Character {
     pub name: Option<String>,
     pub slug: Option<String>,
     pub species: Option<u8>,
-    pub updated_at: Option<usize>,
+    pub updated_at: Option<i64>,
     pub url: Option<String>,
 }
 
@@ -31,6 +32,14 @@ impl Character {
             Some(s) => Species::new(s).translate(),
             _ => String::from("null"),
         }
+    }
+
+    pub fn created_at(&self) -> String {
+      timestamp_as_string(self.created_at)
+    }
+
+    pub fn updated_at(&self) -> String {
+      timestamp_as_string(self.updated_at)
     }
 }
 
