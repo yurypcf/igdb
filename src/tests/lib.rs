@@ -110,7 +110,8 @@ fn game_response_test() {
     }
   ];
 
-    assert_eq!(&expected_result, &game)
+    assert_eq!(&expected_result, &game);
+    assert_eq!("2021-10-12 21:45:15", &game[0].created_at())
 }
 
 // Testing API Error being treated to consumer

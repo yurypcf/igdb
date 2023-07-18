@@ -1,3 +1,4 @@
+use crate::utils::response_handler::timestamp_as_string;
 use serde::Deserialize;
 
 #[derive(Deserialize, Debug, PartialEq)]
@@ -12,7 +13,7 @@ pub struct Game {
     pub checksum: Option<String>,
     pub collection: Option<usize>,
     pub cover: Option<usize>,
-    pub created_at: Option<usize>,
+    pub created_at: Option<i64>,
     pub dlcs: Option<Vec<usize>>,
     pub expanded_games: Option<Vec<usize>>,
     pub expansions: Option<Vec<usize>>,
@@ -52,7 +53,7 @@ pub struct Game {
     pub themes: Option<Vec<usize>>,
     pub total_rating: Option<f32>,
     pub total_rating_count: Option<usize>,
-    pub updated_at: Option<usize>,
+    pub updated_at: Option<i64>,
     pub url: Option<String>,
     pub version_parent: Option<usize>,
     pub version_title: Option<String>,
@@ -73,6 +74,14 @@ impl Game {
             Some(s) => Status::new(s).translate(),
             _ => String::from("null"),
         }
+    }
+
+    pub fn created_at(&self) -> String {
+        timestamp_as_string(self.created_at)
+    }
+
+    pub fn updated_at(&self) -> String {
+        timestamp_as_string(self.updated_at)
     }
 }
 
