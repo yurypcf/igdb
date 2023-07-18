@@ -1,4 +1,5 @@
 use serde::Deserialize;
+use chrono::naive::NaiveDateTime;
 
 pub type Result<V> = std::result::Result<V, APIError>;
 
@@ -38,4 +39,8 @@ impl From<serde_json::Error> for APIError {
             format!("Sort options parse error: {}", value),
         )
     }
+}
+
+pub fn timestamp_as_string(s: Option<i64>) -> String {
+  NaiveDateTime::from_timestamp_opt(s.unwrap(), 0).unwrap().to_string()
 }
