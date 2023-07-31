@@ -1,106 +1,105 @@
 use crate::utils::response_handler::timestamp_as_string;
+use num_enum::TryFromPrimitive;
 use serde::Deserialize;
 
-#[derive(Deserialize, Debug, PartialEq)]
+pub type CharacterResult = Vec<Character>;
+
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct Character {
-    pub id: usize,
+    pub id: u64,
     pub akas: Option<Vec<String>>,
-    pub checksum: Option<String>,
     pub country_name: Option<String>,
     pub created_at: Option<i64>,
     pub description: Option<String>,
-    pub games: Option<Vec<usize>>,
-    pub gender: Option<u8>,
-    pub mug_shot: Option<usize>,
-    pub name: Option<String>,
-    pub slug: Option<String>,
-    pub species: Option<u8>,
+    pub games: Option<Vec<u64>>,
+    pub gender: Option<i32>,
+    pub mug_shot: Option<i32>,
+    pub name: String,
+    pub slug: String,
+    pub species: Option<i32>,
     pub updated_at: Option<i64>,
-    pub url: Option<String>,
+    pub url: String,
+    pub checksum: String,
 }
 
 impl Character {
-    pub fn gender(&self) -> String {
-        match self.gender {
-            Some(g) => Gender::new(g).translate(),
-            _ => String::from("null"),
-        }
-    }
+  pub fn gender(&self) -> &'static str {
+    Gender::as_int(self.gender).as_str_name()
+  }
 
-    pub fn species(&self) -> String {
-        match self.species {
-            Some(s) => Species::new(s).translate(),
-            _ => String::from("null"),
-        }
-    }
+  pub fn species(&self) -> &'static str {
+    Species::as_int(self.species).as_str_name()
+  }
 
-    pub fn created_at(&self) -> String {
-        timestamp_as_string(self.created_at)
-    }
+  pub fn created_at(&self) -> String {
+    timestamp_as_string(self.created_at)
+  }
 
-    pub fn updated_at(&self) -> String {
-        timestamp_as_string(self.updated_at)
-    }
+  pub fn updated_at(&self) -> String {
+      timestamp_as_string(self.updated_at)
+  }
 }
 
-#[derive(Deserialize, Debug, PartialEq)]
-enum Gender {
-    Male,
-    Female,
-    Other,
-    Null,
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, TryFromPrimitive)]
+#[repr(i32)]
+pub enum Gender {
+    Male = 0,
+    Female = 1,
+    Other = 2,
 }
 
 impl Gender {
-    fn new(int: u8) -> Gender {
-        match int {
-            0 => Gender::Male,
-            1 => Gender::Female,
-            2 => Gender::Other,
-            _ => Gender::Null,
-        }
-    }
-
-    pub fn translate(&self) -> String {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
         match self {
-            Gender::Male => String::from("Male"),
-            Gender::Female => String::from("Female"),
-            Gender::Other => String::from("Other"),
-            Gender::Null => String::from("null"),
+            Gender::Male => "MALE",
+            Gender::Female => "FEMALE",
+            Gender::Other => "OTHER",
         }
+    }
+
+    fn as_int(value: Option<i32>) -> Self {
+      match value {
+        Some(num) => Self::try_from(num).unwrap(),
+        None => Gender::Other,
+      }
     }
 }
 
-#[derive(Deserialize, Debug, PartialEq)]
-enum Species {
-    Human,
-    Alien,
-    Animal,
-    Android,
-    Unknown,
-    Null,
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, TryFromPrimitive)]
+#[repr(i32)]
+pub enum Species {
+    Null = 0,
+    Human = 1,
+    Alien = 2,
+    Animal = 3,
+    Android = 4,
+    Unknown = 5,
 }
-
 impl Species {
-    fn new(int: u8) -> Species {
-        match int {
-            1 => Species::Human,
-            2 => Species::Alien,
-            3 => Species::Animal,
-            4 => Species::Android,
-            5 => Species::Unknown,
-            _ => Species::Null,
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            Species::Null => "CHARACTER_SPECIES_NULL",
+            Species::Human => "HUMAN",
+            Species::Alien => "ALIEN",
+            Species::Animal => "ANIMAL",
+            Species::Android => "ANDROID",
+            Species::Unknown => "UNKNOWN",
         }
     }
 
-    pub fn translate(&self) -> String {
-        match self {
-            Species::Human => String::from("Human"),
-            Species::Alien => String::from("Alien"),
-            Species::Animal => String::from("Animal"),
-            Species::Android => String::from("Android"),
-            Species::Unknown => String::from("Unknown"),
-            Species::Null => String::from("null"),
-        }
+    fn as_int(value: Option<i32>) -> Self {
+      match value {
+        Some(num) => Self::try_from(num).unwrap(),
+        None => Species::Null,
+      }
     }
 }

@@ -7,9 +7,9 @@ pub type AgeRatingResult = Vec<AgeRating>;
 #[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct AgeRating {
     pub id: u64,
-    pub category: i32,
+    pub category: Option<i32>,
     pub content_descriptions: Option<Vec<u64>>,
-    pub rating: i32,
+    pub rating: Option<i32>,
     pub rating_cover_url: Option<String>,
     pub synopsis: Option<String>,
     pub checksum: String,
@@ -28,7 +28,7 @@ impl AgeRating {
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, TryFromPrimitive)]
 #[repr(i32)]
 pub enum Category {
-    CategoryNull = 0,
+    Null = 0,
     Esrb = 1,
     Pegi = 2,
     Cero = 3,
@@ -45,7 +45,7 @@ impl Category {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            Category::CategoryNull => "CATEGORY_NULL",
+            Category::Null => "CATEGORY_NULL",
             Category::Esrb => "ESRB",
             Category::Pegi => "PEGI",
             Category::Cero => "CERO",
@@ -56,15 +56,18 @@ impl Category {
         }
     }
 
-    fn as_int(num: i32) -> Self {
-      Self::try_from(num).unwrap()
+    fn as_int(value: Option<i32>) -> Self {
+      match value {
+        Some(num) => Self::try_from(num).unwrap(),
+        None => Category::Null,
+      }
     }
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, TryFromPrimitive)]
 #[repr(i32)]
 pub enum Rating {
-    RatingNull = 0,
+    Null = 0,
     Three = 1,
     Seven = 2,
     Twelve = 3,
@@ -113,7 +116,7 @@ impl Rating {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            Rating::RatingNull => "RATING_NULL",
+            Rating::Null => "RATING_NULL",
             Rating::Three => "THREE",
             Rating::Seven => "SEVEN",
             Rating::Twelve => "TWELVE",
@@ -156,7 +159,10 @@ impl Rating {
         }
     }
 
-    fn as_int(num: i32) -> Self {
-      Self::try_from(num).unwrap()
+    fn as_int(value: Option<i32>) -> Self {
+      match value {
+        Some(num) => Self::try_from(num).unwrap(),
+        None => Rating::Null,
+      }
     }
 }
