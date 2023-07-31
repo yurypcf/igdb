@@ -68,3 +68,7 @@ pub use platform::Platform;
 #[cfg(feature = "theme")]
 pub mod theme;
 pub use theme::Theme;
+
+pub mod search;
+pub use search::Search;
+pub use search::SearchResult;
