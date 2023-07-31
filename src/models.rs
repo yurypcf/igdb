@@ -44,6 +44,10 @@ pub mod franchise;
 pub use franchise::Franchise;
 pub use franchise::FranchiseResult;
 
+pub mod game_engine_logo;
+pub use game_engine_logo::GameEngineLogo;
+pub use game_engine_logo::GameEngineLogoResult;
+
 #[cfg(feature = "game")]
 pub mod game;
 pub use game::Game;
