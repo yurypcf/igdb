@@ -61,63 +61,11 @@ impl APIWrapper {
         }
     }
 
-    /// Returns EndpointUtils struct pointing to `/games` endpoint from IGDB.
-    #[cfg(feature = "game")]
-    pub fn games(&self) -> EndpointUtils<'_> {
+    pub fn build<'a>(&'a self, endpoint: &'a str) -> EndpointUtils<'a> {
         EndpointUtils {
             wrapper: self,
             query_string: Vec::new(),
-            endpoint: "games",
-        }
-    }
-
-    /// Returns EndpointUtils struct pointing to `/characters` endpoint from IGDB.
-    #[cfg(feature = "character")]
-    pub fn characters(&self) -> EndpointUtils<'_> {
-        EndpointUtils {
-            wrapper: self,
-            query_string: Vec::new(),
-            endpoint: "characters",
-        }
-    }
-
-    /// Returns EndpointUtils struct pointing to `/genres` endpoint from IGDB.
-    #[cfg(feature = "genre")]
-    pub fn genres(&self) -> EndpointUtils<'_> {
-        EndpointUtils {
-            wrapper: self,
-            query_string: Vec::new(),
-            endpoint: "genres",
-        }
-    }
-
-    /// Returns EndpointUtils struct pointing to `/collections` endpoint from IGDB.
-    #[cfg(feature = "collection")]
-    pub fn collections(&self) -> EndpointUtils<'_> {
-        EndpointUtils {
-            wrapper: self,
-            query_string: Vec::new(),
-            endpoint: "collections",
-        }
-    }
-
-    /// Returns EndpointUtils struct pointing to `/platforms` endpoint from IGDB.
-    #[cfg(feature = "platform")]
-    pub fn platforms(&self) -> EndpointUtils<'_> {
-        EndpointUtils {
-            wrapper: self,
-            query_string: Vec::new(),
-            endpoint: "platforms",
-        }
-    }
-
-    /// Returns EndpointUtils struct pointing to `/themes` endpoint from IGDB.
-    #[cfg(feature = "theme")]
-    pub fn themes(&self) -> EndpointUtils<'_> {
-        EndpointUtils {
-            wrapper: self,
-            query_string: Vec::new(),
-            endpoint: "themes",
+            endpoint,
         }
     }
 }
