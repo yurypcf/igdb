@@ -40,6 +40,10 @@ pub mod external_game;
 pub use external_game::ExternalGame;
 pub use external_game::ExternalGameResult;
 
+pub mod franchise;
+pub use franchise::Franchise;
+pub use franchise::FranchiseResult;
+
 #[cfg(feature = "game")]
 pub mod game;
 pub use game::Game;
