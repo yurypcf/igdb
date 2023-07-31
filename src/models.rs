@@ -36,6 +36,10 @@ pub mod cover;
 pub use cover::Cover;
 pub use cover::CoverResult;
 
+pub mod external_game;
+pub use external_game::ExternalGame;
+pub use external_game::ExternalGameResult;
+
 #[cfg(feature = "game")]
 pub mod game;
 pub use game::Game;
