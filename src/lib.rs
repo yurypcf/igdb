@@ -3,7 +3,7 @@
     The crate enables to call endpoints from [IGDB API](https://api-docs.igdb.com/) and performs a query on behalf of the consumer chosen endpoint.
     See [project repository](https://github.com/yurypcf/igdb) for installation, configuration and usage.
     When not using the `.request_json()` public method, you should bring into your project scope
-    the structs you wish to parse. See [models]
+    the structs result you wish to parse. See [models]
 */
 
 pub mod models;
