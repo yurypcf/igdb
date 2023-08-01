@@ -1,6 +1,8 @@
 use crate::utils::response_handler::timestamp_as_string;
 use serde::Deserialize;
 
+pub type PlatformResult = Vec<Platform>;
+
 #[derive(Deserialize, Debug, PartialEq)]
 pub struct Platform {
     pub id: usize,

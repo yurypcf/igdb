@@ -1,6 +1,8 @@
 use crate::utils::response_handler::timestamp_as_string;
 use serde::Deserialize;
 
+pub type ThemeResult = Vec<Theme>;
+
 #[derive(Deserialize, Debug, PartialEq)]
 pub struct Theme {
     pub id: usize,

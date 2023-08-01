@@ -1,6 +1,8 @@
 use crate::utils::response_handler::timestamp_as_string;
 use serde::Deserialize;
 
+pub type GenreResult = Vec<Genre>;
+
 #[derive(Deserialize, Debug, PartialEq)]
 pub struct Genre {
     pub id: usize,
