@@ -21,16 +21,43 @@ pretty_assertions = "1"
 
 [features]
 default = [
-  "game",
+  "age_rating_content_description",
+  "age_rating",
+  "alternative_name",
+  "artwork",
+  "character_mug_shot",
   "character",
+  "collection",
+  "company_logo",
+  "company_website",
+  "company",
+  "cover",
+  "external_game",
+  "franchise",
+  "game_engine_logo",
+  "game",
   "genre",
   "platform",
-  "collection",
+  "search",
   "theme",
 ]
-game = []
+
+age_rating_content_description = []
+age_rating = []
+alternative_name = []
+artwork = []
+character_mug_shot = []
 character = []
+collection = []
+company_logo = []
+company_website = []
+company = []
+cover = []
+external_game = []
+franchise = []
+game_engine_logo = []
+game = []
 genre = []
 platform = []
-collection = []
+search = []
 theme = []
