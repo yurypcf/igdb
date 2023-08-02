@@ -1,5 +1,5 @@
 use crate::{
-    models::*,
+    models::game::Game,
     utils::response_handler::{APIError, Result},
 };
 use pretty_assertions::assert_eq;

@@ -1,6 +1,8 @@
 use crate::utils::response_handler::timestamp_as_string;
 use serde::Deserialize;
 
+pub type GameResult = Vec<Game>;
+
 #[derive(Deserialize, Debug, PartialEq)]
 pub struct Game {
     pub id: usize,

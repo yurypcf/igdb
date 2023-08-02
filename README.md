@@ -17,20 +17,20 @@ If you would like to help the project, pull requests and suggestions are always 
 
 ## Installation
 This crate is using [cargo-features](https://doc.rust-lang.org/cargo/reference/features.html) so your project compiles only code related to the endpoint you'll be using.
-If you're querying only `games` and `characters` endpoint, `Cargo.toml` should look like this:
+For example, if you're querying only `games` and `characters` endpoint, `Cargo.toml` should look like this:
 
 ```toml
 [dependencies]
-rusty_igdb = { "1.0.1", default-features = false, features = ["game", "character"]}
+rusty_igdb = { "2.0.0", default-features = false, features = ["game", "character"]}
 ```
 Unless you want the entire codebase from the crate containing all endpoits methods and structs
 add this to your `Cargo.toml`:
 ```toml
 [dependencies]
-rusty_igdb = "1.0.1"
+rusty_igdb = "2.0.0"
 ```
 
-Also, WARNING: this package uses [rust nightly build](https://doc.rust-lang.org/book/appendix-07-nightly-rust.html). Be sure to have installed.
+Also, this package uses [rust nightly build](https://doc.rust-lang.org/book/appendix-07-nightly-rust.html). Be sure to have installed.
 
 ## Usage
 
@@ -41,7 +41,7 @@ You can read how to retrieve those credentials [here](https://api-docs.igdb.com/
 With **Twitch Access Token** and **Twitch Client ID** in hands, we can bring IGDB API wrapper into scope like this:
 ```rust
 // Along with the wrapper, bring the endpoint Structs to scope so your code knows the return type of the Vector
-use igdb::{APIWrapper, models::Game, models::Character};
+use rusty_igdb::{ APIWrapper, models::{ Game, GameResult, Character, CharacterResult  } };
 use std::env;
 
 fn main() {
@@ -54,7 +54,8 @@ fn main() {
 
   // Using the API wrapper methods to query for Zelda games
   // Here we are expecting a vector of Game struct, so we used the imported Struct.
-  let zelda_games: Vec<Game> = api_wrapper.games()
+  let zelda_games: GameResult = api_wrapper
+    .build("games") // endpoint
     .search("zelda")
     .limit("2")
     .fields("name")
@@ -63,7 +64,8 @@ fn main() {
 
   // Using the API wrapper methods to query for Characters named Mario
   // Here we are expecting a vector of Character struct.
-  let characters_named_mario: Vec<Character> = api_wrapper.characters()
+  let characters_named_mario: CharacterResult = api_wrapper
+    .build("characters") // endpoint
     .search("mario")
     .fields("name")
     .request()
@@ -77,7 +79,8 @@ This would return all fields related to characters that contains Solid Snake
 
 ```rust
   // no .fields() query method returns every field from endpoint
-  let solid_snake_chars_vec: Vec<Character> = api_wrapper.characters()
+  let solid_snake_chars_vec: CharacterResult = api_wrapper
+    .build("characters")
     .search("Solid Snake")
     .request()
     .unwrap();
@@ -88,8 +91,11 @@ The crate offers a JSON public method, so you can customize the response content
 `Value` represents the `serde_json::Value` struct in the below example.
 [See the serde_json crate for more information about.](https://docs.rs/serde_json/latest/serde_json/value/index.html)
 
+All IGDB endpoints should be available using the `request_json()` method.
+
 ```rust
-    let test_characters: Vec<Value> = api_wrapper.characters()
+    let test_characters: Vec<Value> = api_wrapper
+      .build("search")
       .fields("name, gender, country_name")
       .where_like("gender != null")
       .limit("2")
@@ -132,7 +138,6 @@ The result should look and accessed like this:
 ## Roadmap
 
 - Remaining IGDB Endpoints (see [milestone](https://github.com/yurypcf/igdb/milestone/1))
-- Generate docs.rs
 - Add code coverage
 
 ## License

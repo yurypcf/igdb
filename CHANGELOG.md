@@ -8,6 +8,20 @@ A [separate changelog is kept for rand_core](rand_core/CHANGELOG.md).
 
 You may also find the [Upgrade Guide](https://rust-random.github.io/book/update.html) useful.
 
+## v2.0.0 - 2023-08-01
+
+### Refactor
+- There's no method calling endpoints. Instead, we use a method called `build()` that takes the `endpoint` string slice as parameter.
+
+### Added
+- Using type results to facilitate API call
+- More struct endpoints
+
+### Workflow
+- Added github actions building, checking and linting the project on every branch push and pull request
+### Lint
+- Linted all project accordingly to `cargo fmt` and `cargo clippy`
+
 ## v1.0.1 - 2023-07-12
 ### Tests
 - Removed API directly call and responses

@@ -1,6 +1,6 @@
 [package]
 name = "rusty_igdb"
-version = "1.0.1"
+version = "2.0.0"
 edition = "2021"
 description = "A simple IGDB (Internet Game Database) API wrapper for Rust users"
 repository = "https://github.com/yurypcf/igdb"
@@ -13,6 +13,7 @@ license = "Apache-2.0"
 reqwest = { version = "0.11", features = ["json", "blocking"] }
 serde = { version = "1", features = ["derive"] }
 chrono = { version = "0.4.26", default-features = false, features = ["alloc"] }
+num_enum = "0.6.1"
 serde_json = "1.0.99"
 
 [dev-dependencies]
@@ -20,16 +21,43 @@ pretty_assertions = "1"
 
 [features]
 default = [
-  "game",
+  "age_rating_content_description",
+  "age_rating",
+  "alternative_name",
+  "artwork",
+  "character_mug_shot",
   "character",
+  "collection",
+  "company_logo",
+  "company_website",
+  "company",
+  "cover",
+  "external_game",
+  "franchise",
+  "game_engine_logo",
+  "game",
   "genre",
   "platform",
-  "collection",
+  "search",
   "theme",
 ]
-game = []
+
+age_rating_content_description = []
+age_rating = []
+alternative_name = []
+artwork = []
+character_mug_shot = []
 character = []
+collection = []
+company_logo = []
+company_website = []
+company = []
+cover = []
+external_game = []
+franchise = []
+game_engine_logo = []
+game = []
 genre = []
 platform = []
-collection = []
+search = []
 theme = []

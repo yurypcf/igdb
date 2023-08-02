@@ -1,20 +1,22 @@
 use crate::utils::response_handler::timestamp_as_string;
 use serde::Deserialize;
 
-pub type ThemeResult = Vec<Theme>;
+pub type FranchiseResult = Vec<Franchise>;
 
-#[derive(Deserialize, Debug, PartialEq)]
-pub struct Theme {
-    pub id: usize,
-    pub checksum: Option<String>,
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
+pub struct Franchise {
+    pub id: u64,
     pub created_at: Option<i64>,
-    pub name: Option<String>,
-    pub slug: Option<String>,
+    pub games: Option<Vec<u64>>,
+    pub name: String,
+    pub slug: String,
     pub updated_at: Option<i64>,
-    pub url: Option<String>,
+    pub url: String,
+    pub checksum: String,
 }
 
-impl Theme {
+impl Franchise {
     pub fn created_at(&self) -> String {
         timestamp_as_string(self.created_at)
     }
