@@ -1,5 +1,5 @@
-use serde::Deserialize;
 use num_enum::TryFromPrimitive;
+use serde::Deserialize;
 
 pub type AgeRatingResult = Vec<AgeRating>;
 
@@ -16,13 +16,13 @@ pub struct AgeRating {
 }
 
 impl AgeRating {
-  pub fn category(&self) -> &'static str {
-    Category::as_int(self.category).as_str_name()
-  }
+    pub fn category(&self) -> &'static str {
+        Category::as_int(self.category).as_str_name()
+    }
 
-  pub fn rating(&self) -> &'static str {
-    Rating::as_int(self.rating).as_str_name()
-  }
+    pub fn rating(&self) -> &'static str {
+        Rating::as_int(self.rating).as_str_name()
+    }
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, TryFromPrimitive)]
@@ -57,10 +57,10 @@ impl Category {
     }
 
     fn as_int(value: Option<i32>) -> Self {
-      match value {
-        Some(num) => Self::try_from(num).unwrap(),
-        None => Category::Null,
-      }
+        match value {
+            Some(num) => Self::try_from(num).unwrap(),
+            None => Category::Null,
+        }
     }
 }
 
@@ -160,9 +160,9 @@ impl Rating {
     }
 
     fn as_int(value: Option<i32>) -> Self {
-      match value {
-        Some(num) => Self::try_from(num).unwrap(),
-        None => Rating::Null,
-      }
+        match value {
+            Some(num) => Self::try_from(num).unwrap(),
+            None => Rating::Null,
+        }
     }
 }

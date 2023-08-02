@@ -24,21 +24,21 @@ pub struct Character {
 }
 
 impl Character {
-  pub fn gender(&self) -> &'static str {
-    Gender::as_int(self.gender).as_str_name()
-  }
+    pub fn gender(&self) -> &'static str {
+        Gender::as_int(self.gender).as_str_name()
+    }
 
-  pub fn species(&self) -> &'static str {
-    Species::as_int(self.species).as_str_name()
-  }
+    pub fn species(&self) -> &'static str {
+        Species::as_int(self.species).as_str_name()
+    }
 
-  pub fn created_at(&self) -> String {
-    timestamp_as_string(self.created_at)
-  }
+    pub fn created_at(&self) -> String {
+        timestamp_as_string(self.created_at)
+    }
 
-  pub fn updated_at(&self) -> String {
-      timestamp_as_string(self.updated_at)
-  }
+    pub fn updated_at(&self) -> String {
+        timestamp_as_string(self.updated_at)
+    }
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, TryFromPrimitive)]
@@ -63,10 +63,10 @@ impl Gender {
     }
 
     fn as_int(value: Option<i32>) -> Self {
-      match value {
-        Some(num) => Self::try_from(num).unwrap(),
-        None => Gender::Other,
-      }
+        match value {
+            Some(num) => Self::try_from(num).unwrap(),
+            None => Gender::Other,
+        }
     }
 }
 
@@ -97,9 +97,9 @@ impl Species {
     }
 
     fn as_int(value: Option<i32>) -> Self {
-      match value {
-        Some(num) => Self::try_from(num).unwrap(),
-        None => Species::Null,
-      }
+        match value {
+            Some(num) => Self::try_from(num).unwrap(),
+            None => Species::Null,
+        }
     }
 }

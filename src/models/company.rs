@@ -1,6 +1,6 @@
 use crate::utils::response_handler::timestamp_as_string;
-use serde::Deserialize;
 use num_enum::TryFromPrimitive;
+use serde::Deserialize;
 
 pub type CompanyResult = Vec<Company>;
 
@@ -29,21 +29,21 @@ pub struct Company {
 }
 
 impl Company {
-  pub fn change_date_category(&self) -> &'static str {
-    DateFormatChangeDateCategoryEnum::as_int(self.change_date_category).as_str_name()
-  }
+    pub fn change_date_category(&self) -> &'static str {
+        DateFormatChangeDateCategoryEnum::as_int(self.change_date_category).as_str_name()
+    }
 
-  pub fn start_date_category(&self) -> &'static str {
-    DateFormatChangeDateCategoryEnum::as_int(self.start_date_category).as_str_name()
-  }
+    pub fn start_date_category(&self) -> &'static str {
+        DateFormatChangeDateCategoryEnum::as_int(self.start_date_category).as_str_name()
+    }
 
-  pub fn created_at(&self) -> String {
-    timestamp_as_string(self.created_at)
-  }
+    pub fn created_at(&self) -> String {
+        timestamp_as_string(self.created_at)
+    }
 
-  pub fn updated_at(&self) -> String {
-      timestamp_as_string(self.updated_at)
-  }
+    pub fn updated_at(&self) -> String {
+        timestamp_as_string(self.updated_at)
+    }
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, TryFromPrimitive)]
@@ -80,9 +80,9 @@ impl DateFormatChangeDateCategoryEnum {
     }
 
     fn as_int(value: Option<i32>) -> Self {
-      match value {
-        Some(num) => Self::try_from(num).unwrap(),
-        None => DateFormatChangeDateCategoryEnum::Null,
-      }
+        match value {
+            Some(num) => Self::try_from(num).unwrap(),
+            None => DateFormatChangeDateCategoryEnum::Null,
+        }
     }
 }

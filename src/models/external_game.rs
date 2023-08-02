@@ -23,21 +23,21 @@ pub struct ExternalGame {
 }
 
 impl ExternalGame {
-  pub fn category(&self) -> &'static str {
-    Category::as_int(self.category).as_str_name()
-  }
+    pub fn category(&self) -> &'static str {
+        Category::as_int(self.category).as_str_name()
+    }
 
-  pub fn media(&self) -> &'static str {
-    Media::as_int(self.media).as_str_name()
-  }
+    pub fn media(&self) -> &'static str {
+        Media::as_int(self.media).as_str_name()
+    }
 
-  pub fn created_at(&self) -> String {
-    timestamp_as_string(self.created_at)
-  }
+    pub fn created_at(&self) -> String {
+        timestamp_as_string(self.created_at)
+    }
 
-  pub fn updated_at(&self) -> String {
-      timestamp_as_string(self.updated_at)
-  }
+    pub fn updated_at(&self) -> String {
+        timestamp_as_string(self.updated_at)
+    }
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, TryFromPrimitive)]
@@ -73,9 +73,7 @@ impl Category {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            Category::Null => {
-                "CATEGORY_NULL"
-            }
+            Category::Null => "CATEGORY_NULL",
             Category::Steam => "STEAM",
             Category::Gog => "GOG",
             Category::Youtube => "YOUTUBE",
@@ -83,41 +81,27 @@ impl Category {
             Category::Apple => "APPLE",
             Category::Twitch => "TWITCH",
             Category::Android => "ANDROID",
-            Category::AmazonAsin => {
-                "AMAZON_ASIN"
-            }
-            Category::AmazonLuna => {
-                "AMAZON_LUNA"
-            }
+            Category::AmazonAsin => "AMAZON_ASIN",
+            Category::AmazonLuna => "AMAZON_LUNA",
             Category::AmazonAdg => "AMAZON_ADG",
-            Category::EpicGameStore => {
-                "EPIC_GAME_STORE"
-            }
+            Category::EpicGameStore => "EPIC_GAME_STORE",
             Category::Oculus => "OCULUS",
             Category::Utomik => "UTOMIK",
             Category::ItchIo => "ITCH_IO",
-            Category::XboxMarketplace => {
-                "XBOX_MARKETPLACE"
-            }
+            Category::XboxMarketplace => "XBOX_MARKETPLACE",
             Category::Kartridge => "KARTRIDGE",
-            Category::PlaystationStoreUs => {
-                "PLAYSTATION_STORE_US"
-            }
-            Category::FocusEntertainment => {
-                "FOCUS_ENTERTAINMENT"
-            }
-            Category::XboxGamePassUltimateCloud => {
-                "XBOX_GAME_PASS_ULTIMATE_CLOUD"
-            }
+            Category::PlaystationStoreUs => "PLAYSTATION_STORE_US",
+            Category::FocusEntertainment => "FOCUS_ENTERTAINMENT",
+            Category::XboxGamePassUltimateCloud => "XBOX_GAME_PASS_ULTIMATE_CLOUD",
             Category::Gamejolt => "GAMEJOLT",
         }
     }
 
     fn as_int(value: Option<i32>) -> Self {
-      match value {
-        Some(num) => Self::try_from(num).unwrap(),
-        None => Category::Null,
-      }
+        match value {
+            Some(num) => Self::try_from(num).unwrap(),
+            None => Category::Null,
+        }
     }
 }
 
@@ -143,9 +127,9 @@ impl Media {
     }
 
     fn as_int(value: Option<i32>) -> Self {
-      match value {
-        Some(num) => Self::try_from(num).unwrap(),
-        None => Media::Null,
-      }
+        match value {
+            Some(num) => Self::try_from(num).unwrap(),
+            None => Media::Null,
+        }
     }
 }

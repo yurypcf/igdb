@@ -22,7 +22,7 @@ pub struct Search {
 }
 
 impl Search {
-  pub fn published_at(&self) -> String {
-    timestamp_as_string(self.published_at)
-  }
+    pub fn published_at(&self) -> String {
+        timestamp_as_string(self.published_at)
+    }
 }

@@ -1,5 +1,5 @@
-use serde::Deserialize;
 use num_enum::TryFromPrimitive;
+use serde::Deserialize;
 
 pub type AgeRatingContentDescriptionResult = Vec<AgeRatingContentDescription>;
 
@@ -13,9 +13,9 @@ pub struct AgeRatingContentDescription {
 }
 
 impl AgeRatingContentDescription {
-  pub fn category(&self) -> &'static str {
-    Category::as_int(self.category).as_str_name()
-  }
+    pub fn category(&self) -> &'static str {
+        Category::as_int(self.category).as_str_name()
+    }
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, TryFromPrimitive)]
@@ -206,9 +206,9 @@ impl Category {
     }
 
     fn as_int(value: Option<i32>) -> Self {
-      match value {
-        Some(num) => Self::try_from(num).unwrap(),
-        None => Category::Null,
-      }
+        match value {
+            Some(num) => Self::try_from(num).unwrap(),
+            None => Category::Null,
+        }
     }
 }

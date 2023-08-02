@@ -17,11 +17,11 @@ pub struct Franchise {
 }
 
 impl Franchise {
-  pub fn created_at(&self) -> String {
-    timestamp_as_string(self.created_at)
-  }
+    pub fn created_at(&self) -> String {
+        timestamp_as_string(self.created_at)
+    }
 
-  pub fn updated_at(&self) -> String {
-      timestamp_as_string(self.updated_at)
-  }
+    pub fn updated_at(&self) -> String {
+        timestamp_as_string(self.updated_at)
+    }
 }
