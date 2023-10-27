@@ -11,15 +11,15 @@ pub struct ExternalGame {
     pub category: Option<i32>,
     pub created_at: Option<i64>,
     pub game: Option<u64>,
-    pub name: String,
-    pub uid: String,
+    pub name: Option<String>,
+    pub uid: Option<String>,
     pub updated_at: Option<i64>,
-    pub url: String,
+    pub url: Option<String>,
     pub year: Option<i32>,
     pub media: Option<i32>,
     pub platform: Option<u64>,
     pub countries: Option<Vec<i32>>,
-    pub checksum: String,
+    pub checksum: Option<String>,
 }
 
 impl ExternalGame {

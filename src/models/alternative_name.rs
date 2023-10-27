@@ -8,6 +8,6 @@ pub struct AlternativeName {
     pub id: u64,
     pub comment: Option<String>,
     pub game: Option<u64>,
-    pub name: String,
-    pub checksum: String,
+    pub name: Option<String>,
+    pub checksum: Option<String>,
 }

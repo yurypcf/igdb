@@ -12,7 +12,7 @@ pub struct AgeRating {
     pub rating: Option<i32>,
     pub rating_cover_url: Option<String>,
     pub synopsis: Option<String>,
-    pub checksum: String,
+    pub checksum: Option<String>,
 }
 
 impl AgeRating {

@@ -13,7 +13,7 @@ pub struct Search {
     pub company: Option<u64>,
     pub description: Option<String>,
     pub game: Option<u64>,
-    pub name: String,
+    pub name: Option<String>,
     pub platform: Option<u64>,
     pub published_at: Option<i64>,
     pub test_dummy: Option<u64>,

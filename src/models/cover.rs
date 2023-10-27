@@ -11,8 +11,8 @@ pub struct Cover {
     pub game: Option<u64>,
     pub height: Option<i32>,
     pub image_id: Option<String>,
-    pub url: String,
+    pub url: Option<String>,
     pub width: Option<i32>,
-    pub checksum: String,
+    pub checksum: Option<String>,
     pub game_localization: Option<u64>,
 }

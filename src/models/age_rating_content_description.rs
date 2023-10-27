@@ -9,7 +9,7 @@ pub struct AgeRatingContentDescription {
     pub id: u64,
     pub category: Option<i32>,
     pub description: Option<String>,
-    pub checksum: String,
+    pub checksum: Option<String>,
 }
 
 impl AgeRatingContentDescription {
