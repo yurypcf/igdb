@@ -16,16 +16,16 @@ pub struct Company {
     pub description: Option<String>,
     pub developed: Option<Vec<u64>>,
     pub logo: Option<u64>,
-    pub name: String,
+    pub name: Option<String>,
     pub parent: Option<u64>,
     pub published: Option<Vec<u64>>,
-    pub slug: String,
+    pub slug: Option<String>,
     pub start_date: Option<i64>,
     pub start_date_category: Option<i32>,
     pub updated_at: Option<i64>,
-    pub url: String,
+    pub url: Option<String>,
     pub websites: Option<Vec<u64>>,
-    pub checksum: String,
+    pub checksum: Option<String>,
 }
 
 impl Company {

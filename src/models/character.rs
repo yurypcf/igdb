@@ -15,12 +15,12 @@ pub struct Character {
     pub games: Option<Vec<u64>>,
     pub gender: Option<i32>,
     pub mug_shot: Option<i32>,
-    pub name: String,
-    pub slug: String,
+    pub name: Option<String>,
+    pub slug: Option<String>,
     pub species: Option<i32>,
     pub updated_at: Option<i64>,
-    pub url: String,
-    pub checksum: String,
+    pub url: Option<String>,
+    pub checksum: Option<String>,
 }
 
 impl Character {

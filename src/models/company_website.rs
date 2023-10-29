@@ -6,8 +6,8 @@ pub type CompanyWebsiteResult = Vec<CompanyWebsite>;
 #[derive(Deserialize, Debug, Clone, PartialEq)]
 pub struct CompanyWebsite {
     pub id: u64,
-    pub category: i32,
-    pub trusted: bool,
-    pub url: String,
-    pub checksum: String,
+    pub category: Option<i32>,
+    pub trusted: Option<bool>,
+    pub url: Option<String>,
+    pub checksum: Option<String>,
 }
